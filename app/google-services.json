@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1068385897632",
+    "project_id": "quizapp-htw",
+    "storage_bucket": "quizapp-htw.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068385897632:android:119247d2e6b9340a720dc5",
+        "android_client_info": {
+          "package_name": "de.htw_berlin.quiz_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068385897632-0i7ok079qnku3bnihf5pcs6ubasqb5ir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.htw_berlin.quiz_app",
+            "certificate_hash": "998d270a25e5f5e59e17e57e6958a3ee89aaecfd"
+          }
+        },
+        {
+          "client_id": "1068385897632-ph67eraqrgu6lbkqp2kt099f2ji49vae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDBwoWzwQVQ3Q4xVAlqtumYniU5YUmuVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068385897632-ph67eraqrgu6lbkqp2kt099f2ji49vae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
