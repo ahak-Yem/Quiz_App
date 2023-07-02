@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    tools:ignore="UseCompoundDrawables"><!--TODO:Remove later-->
+
+<!--TODO:Adjust to work with data from Firestore:TextView:text & ImageView:src-->
+    <ImageView
+        android:id="@+id/categoryIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        tools:src="@drawable/sport_category_pictogram"
+        android:contentDescription="@string/category_programming"
+        />
+    <TextView
+        android:id="@+id/categoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Sports" />
+
+</LinearLayout>

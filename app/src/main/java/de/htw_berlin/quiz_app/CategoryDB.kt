@@ -5,10 +5,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 //This class handles communication with DB to fetch Category Collection
 class CategoryDB {
 
-    /*TODO:Frag Herr Neumann:Does it make since to get the Firestore Instance whenever we want to
-       access it or to create it somewhere in a singleton class and save it in a variable to reuse
-        it for other collections?*/
-
     //A private attribute field with datatype(FirebaseFirestore) that saves our firestore instance
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
