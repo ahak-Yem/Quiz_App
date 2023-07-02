@@ -32,7 +32,7 @@ class CategorySelectionActivity:AppCompatActivity() {
 
         /*Calling the getCategories() of the DB object to fetch the
         categories from our firestore instance*/
-        val categories = categoryDB.getCategories(onSuccess = { categoryList ->
+        categoryDB.getCategories(onSuccess = { categoryList ->
             // Update the adapter data with the categories from firestore
             categoryAdapter.data = categoryList
         },
@@ -42,20 +42,19 @@ class CategorySelectionActivity:AppCompatActivity() {
 
         //Initialize the adapter field with an adapter instance to be used in our logic.
         //By doing this the method in the adapter will be called.
-        categoryAdapter=CategoryAdapter()
+        categoryAdapter = CategoryAdapter(object : CategoryAdapter.OnItemClickListener {
+            override fun onItemClick(category: Category) {
+                navigateToNextScreen(category)
+            }
+        })
 
         //setting the adapter to handle the RecyclerView content
         recyclerView.adapter = categoryAdapter
 
-        //TODO: We will need something like this later to choose category
-        /*categoryAdapter = CategoryAdapter(object : CategoryAdapter.OnItemClickListener {
-            override fun onItemClick(category: Category) {
-                // Handle category item click event
-                navigateToNextScreen(category)*/
     }
 
     //A function to navigate to next Screen
-    private fun navigateToNextScreen(category: String) {
+    private fun navigateToNextScreen(category: Category) {
         /*TODO: Heltonn, wenn du NormalModus fertig hast, nutze das hier. Unkommentieren
             und statt NextActivity sollst du dein neues Activity aufrufen.*/
         //val intent = Intent(this, NextActivity::class.java)

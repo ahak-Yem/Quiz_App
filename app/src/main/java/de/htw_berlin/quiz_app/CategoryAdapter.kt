@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 //This class adapt the data from firestore for each item to be displayed in the ViewHolder
-class CategoryAdapter():RecyclerView.Adapter<CategoryItemViewHolder>() {
+class CategoryAdapter(private val itemClickListener: OnItemClickListener):RecyclerView.Adapter<CategoryItemViewHolder>() {
 
     //The categories data from firestore to be adapted with setter to update the data
     var data = listOf<Category>()
         set(value) {
             field = value
             notifyDataSetChanged() //Notify the adapter about any change
-            //TODO:Change this method
+            //TODO:Change this method later to optimize code
         }
 
     //Returns how many data we have in our list
@@ -30,7 +30,13 @@ class CategoryAdapter():RecyclerView.Adapter<CategoryItemViewHolder>() {
         val iconResId = holder.itemView.context.resources.getIdentifier(item.iconPath.substringAfterLast("/") , "drawable", holder.itemView.context.packageName)
         holder.categoryIcon.setImageResource(iconResId)
         holder.categoryName.text = item.name
+
+        /*When an item is clicked, it triggers the onItemClick method of the
+        itemClickListener and passes the corresponding Category object.*/
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClick(item)
         }
+    }
 
     /*Inflates the layout for each item(data) in the adapter,
     and creates a CategoryItemViewHolder by inflating the view*/
@@ -43,5 +49,9 @@ class CategoryAdapter():RecyclerView.Adapter<CategoryItemViewHolder>() {
 
         //Return the ViewHolder Object created using the inflated view passed in the constructor
         return CategoryItemViewHolder(view)
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(category: Category)
     }
 }
