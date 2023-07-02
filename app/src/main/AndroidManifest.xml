@@ -16,7 +16,6 @@
             android:name=".Modusauswahl"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-
             android:label="Modus"/>
         <activity
             android:name=".Splash"
@@ -24,7 +23,6 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,7 +32,15 @@
             android:label="Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CategorySelectionActivity"
+            android:exported="true"
+            android:label="Category Selection">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
