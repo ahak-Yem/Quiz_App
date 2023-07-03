@@ -26,7 +26,6 @@ class CategorySelectionActivity:AppCompatActivity() {
         recyclerView = findViewById(R.id.categoryRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        //TODO:Test if this is needed
         //Init the DB field with a CategoryDB object
         categoryDB=CategoryDB()
 
