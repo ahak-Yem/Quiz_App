@@ -13,16 +13,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val start = findViewById<Button>(R.id.Start_btn)
-        val username = findViewById<EditText>(R.id.Username)
+        val name = findViewById<EditText>(R.id.Username)
+        val spitzname = findViewById<EditText>(R.id.Spitzname)
         val txterror = findViewById<TextView>(R.id.textinput_error)
+
         start.setOnClickListener {
             txterror.visibility = View.VISIBLE
-            val txtusername = username.text.toString()
-            if (txtusername.trim().isEmpty()) {
-                txterror.text = "Name eingeben"
+            val txtusername = name.text.toString()
+            val txtspitzname = spitzname.text.toString()
+            if (txtusername.trim().isEmpty()  ){
+                txterror.text = "Name  eingeben"
                 txterror.visibility = View.VISIBLE
-            } else {
-                username.setText("")
+            }
+            else
+                if (txtspitzname.trim().isEmpty()  ){
+                    txterror.text = "Spitzname  eingeben"
+                    txterror.visibility = View.VISIBLE
+                }
+                else
+                    if (txtspitzname.trim().isEmpty() && txtusername.trim().isEmpty() ){
+                        txterror.text = "Spitzname und Name eingeben"
+                        txterror.visibility = View.VISIBLE
+                    }
+
+
+            else {
+                name.setText("")
 
                 val intent = Intent(this, Modusauswahl::class.java)
                 intent.putExtra("username", txtusername)

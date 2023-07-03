@@ -15,7 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="20dp"
-        android:background="@color/white">
+        android:background="@color/black">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Deinen Name eingeben "
+                android:text="Bei QuizQuiz "
                 android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -54,9 +54,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name"
-                    android:inputType="textCapWords"
+                    android:inputType="textPersonName"
                     android:textColor="#363a43"
                     android:textColorHint="#7a8089"/>
+
+
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <EditText
+                    android:id="@+id/Spitzname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Spitzname"
+                    android:inputType="textPersonName"
+                    android:textColor="#363a43"
+                    android:textColorHint="#7a8089"/>
+
+
 
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
@@ -73,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#6200EE"
+                android:background="@color/design_default_color_primary"
                 android:text="Anmelden"/>
 
         </LinearLayout>
