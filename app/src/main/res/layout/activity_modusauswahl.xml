@@ -58,6 +58,7 @@
                 android:background="@color/design_default_color_primary"
                 android:text="Spielmodus"/>
             <TextView
+                android:id="@+id/hilfe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Hilfe ?"

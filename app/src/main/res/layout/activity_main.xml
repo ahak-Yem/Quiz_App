@@ -36,7 +36,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bei QuizQuiz "
+                android:text="Bei QuizMaster "
                 android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:gravity="center"
