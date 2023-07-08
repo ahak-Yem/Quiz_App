@@ -14,7 +14,7 @@ class CategorySelectionActivity:AppCompatActivity() {
     the data adapter between the firestore and the ViewHolder, and the firestore db instance*/
     private lateinit var recyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var categoryDB:CategoryDB
+    private lateinit var _db:DB
 
     /*Runs when this activity is called and set the content of our activity layout*/
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +27,11 @@ class CategorySelectionActivity:AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         //Init the DB field with a CategoryDB object
-        categoryDB=CategoryDB()
+        _db=DB()
 
         /*Calling the getCategories() of the DB object to fetch the
         categories from our firestore instance*/
-        categoryDB.getCategories(onSuccess = { categoryList ->
+        _db.getCategories(onSuccess = { categoryList ->
             // Update the adapter data with the categories from firestore
             categoryAdapter.data = categoryList
         },
