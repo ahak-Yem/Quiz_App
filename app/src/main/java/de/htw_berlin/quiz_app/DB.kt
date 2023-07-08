@@ -3,7 +3,7 @@ package de.htw_berlin.quiz_app
 import com.google.firebase.firestore.FirebaseFirestore
 
 //This class handles communication with DB to fetch Category Collection
-class CategoryDB {
+class DB {
 
     //A private attribute field with datatype(FirebaseFirestore) that saves our firestore instance
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
