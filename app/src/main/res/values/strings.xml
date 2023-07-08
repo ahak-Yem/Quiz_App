@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Quiz App</string>
-    <string name="category_programming" ><a href="https://www.flaticon.com/free-icons/laptop" title="laptop icons">Laptop icons created by Freepik - Flaticon</a></string>
-    <string name="category_maths" ><a href="https://www.flaticon.com/free-icons/division" title="division icons">Division icons created by Freepik - Flaticon</a></string>
-    <string name="category_sports" ><a href="https://www.freepik.com/free-vector/sports-icons_1077033.htm#query=sports%20pictograms&amp;position=0&amp;from_view=keyword&amp;track=ais">Image by ibrandify on Freepik</a></string>
-    <string name="category_music" ><a href="https://www.flaticon.com/free-icons/music" title="music icons">Music icons created by Freepik - Flaticon</a></string>
-    <string name="category_geography" ><a href="https://www.flaticon.com/free-icons/geography" title="geography icons">Geography icons created by Freepik - Flaticon</a></string>
+    <string name="category_programming"><a href="https://www.flaticon.com/free-icons/laptop" title="laptop icons">Laptop icons created by Freepik - Flaticon</a></string>
+    <string name="category_maths"><a href="https://www.flaticon.com/free-icons/division" title="division icons">Division icons created by Freepik - Flaticon</a></string>
+    <string name="category_sports"><a href="https://www.freepik.com/free-vector/sports-icons_1077033.htm#query=sports%20pictograms&amp;position=0&amp;from_view=keyword&amp;track=ais">Image by ibrandify on Freepik</a></string>
+    <string name="category_music"><a href="https://www.flaticon.com/free-icons/music" title="music icons">Music icons created by Freepik - Flaticon</a></string>
+    <string name="category_geography"><a href="https://www.flaticon.com/free-icons/geography" title="geography icons">Geography icons created by Freepik - Flaticon</a></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
