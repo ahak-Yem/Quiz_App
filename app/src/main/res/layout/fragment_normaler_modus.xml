@@ -8,10 +8,12 @@
             name="normalerModusViewModel"
             type="de.htw_berlin.quiz_app.NormalerModusViewModel" />
     </data>
+
+    <!--From here starts design!-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@color/blackfresh">
         <!-- Timer and Score -->
         <RelativeLayout
             android:id="@+id/timerScoreLayout"
@@ -19,29 +21,32 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!--TODO Change text timer to dynamic timer & style -->
             <!-- Timer -->
             <TextView
                 android:id="@+id/timerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:text="@{String.format(@string/timer_format, String.valueOf(normalerModusViewModel.timer))}"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                tools:text="00:00" />
-            <!--TODO Change text score to dynamic score & style -->
+                tools:text="Timer: 30 s" />
             <!-- Score -->
             <TextView
                 android:id="@+id/scoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/timerTextView"
-                android:textColor="#000000"
-                android:textSize="18sp"                tools:texe="Score: 0" />
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text='@{@string/score_format(String.valueOf(normalerModusViewModel.score))}'
+                tools:text="Score: 0" />
 
 
         </RelativeLayout>
@@ -52,6 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:background="@color/cardview_light_background"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,6 +77,7 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="24sp"
+                android:text="@{normalerModusViewModel.questionText}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -98,6 +106,9 @@
                     android:layout_weight="1"
                     android:padding="16dp"
                     android:textAlignment="center"
+                    android:background="@drawable/button_gradient"
+                    android:text="@{normalerModusViewModel.options.get(0)}"
+                    android:tag="0"
                     tools:text="Option 1" />
 
                 <Button
@@ -110,6 +121,10 @@
                     android:layout_weight="1"
                     android:padding="16dp"
                     android:textAlignment="center"
+                    android:background="@drawable/button_gradient"
+                    android:tag="1"
+                    android:text="@{normalerModusViewModel.options.get(1)}"
+
                     tools:text="Option 2" />
 
                 <Button
@@ -122,6 +137,9 @@
                     android:layout_weight="1"
                     android:padding="16dp"
                     android:textAlignment="center"
+                    android:background="@drawable/button_gradient"
+                    android:text="@{normalerModusViewModel.options.get(2)}"
+                    android:tag="2"
                     tools:text="Option 3" />
 
                 <Button
@@ -134,6 +152,9 @@
                     android:layout_weight="1"
                     android:padding="16dp"
                     android:textAlignment="center"
+                    android:background="@drawable/button_gradient"
+                    android:text="@{normalerModusViewModel.options.get(3)}"
+                    android:tag="3"
                     tools:text="Option 4" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
