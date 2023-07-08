@@ -23,9 +23,8 @@ class Spielmodus : Fragment() {
     private lateinit var option3Button: Button
     private lateinit var option4Button: Button
 
-
-
-
+    private var currentQuestion: String = ""
+    private var currentAnswer: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +39,6 @@ class Spielmodus : Fragment() {
         option3Button = view.findViewById(R.id.option3)
         option4Button = view.findViewById(R.id.option4)
 
-
         // Initialisation de Firebase Firestore
         val db = FirebaseFirestore.getInstance()
 
@@ -50,14 +48,17 @@ class Spielmodus : Fragment() {
                 val questionsQuerySnapshot = db.collection("Questions").get().await()
                 val questionsList = mutableListOf<String>()
                 val suggestionsMap = mutableMapOf<String, List<String>>()
+                val answersMap = mutableMapOf<String, String>()
 
                 // Parcourir les documents de la collection "Questions"
                 for (questionDocumentSnapshot: QueryDocumentSnapshot in questionsQuerySnapshot) {
                     val questionText = questionDocumentSnapshot.getString("Text")
                     val suggestions = questionDocumentSnapshot.get("Suggestions") as? List<String>
+                    val answer = questionDocumentSnapshot.getString("Answer")
 
                     questionText?.let { questionsList.add(it) }
                     suggestions?.let { suggestionsMap[questionText!!] = it }
+                    answer?.let { answersMap[questionText!!] = it }
                 }
 
                 // Mélanger la liste de questions de manière aléatoire
@@ -65,7 +66,9 @@ class Spielmodus : Fragment() {
 
                 // Mettre à jour le TextView avec la première question (indice 0)
                 if (questionsList.isNotEmpty()) {
-                    val currentQuestion = questionsList[0]
+                    currentQuestion = questionsList[0]
+                    currentAnswer = answersMap[currentQuestion] ?: ""
+
                     fragenTextView.text = currentQuestion
 
                     // Vérifier si les suggestions de réponses sont disponibles pour cette question
@@ -89,9 +92,47 @@ class Spielmodus : Fragment() {
             }
         }
 
-        return view
+        // Ajouter un écouteur de clic pour les boutons d'option
+        option1Button.setOnClickListener { checkAnswer(option1Button.text.toString()) }
+        option2Button.setOnClickListener { checkAnswer(option2Button.text.toString()) }
+        option3Button.setOnClickListener { checkAnswer(option3Button.text.toString()) }
+        option4Button.setOnClickListener { checkAnswer(option4Button.text.toString()) }
 
+        return view
     }
 
+    private fun checkAnswer(selectedOption: String) {
+        if (selectedOption == currentAnswer) {
+            // Réponse correcte
+            highlightButtonGreen(selectedOption)
+        } else {
+            // Réponse incorrecte
+            highlightButtonRed(selectedOption)
+            highlightButtonGreen(currentAnswer)
+        }
 
+        // Désactiver les boutons d'option pour empêcher les clics supplémentaires
+        option1Button.isEnabled = false
+        option2Button.isEnabled = false
+        option3Button.isEnabled = false
+        option4Button.isEnabled = false
+    }
+
+    private fun highlightButtonGreen(option: String) {
+        when (option) {
+            option1Button.text -> option1Button.setBackgroundResource(R.drawable.round_back_green)
+            option2Button.text -> option2Button.setBackgroundResource(R.drawable.round_back_green)
+            option3Button.text -> option3Button.setBackgroundResource(R.drawable.round_back_green)
+            option4Button.text -> option4Button.setBackgroundResource(R.drawable.round_back_green)
+        }
+    }
+
+    private fun highlightButtonRed(option: String) {
+        when (option) {
+            option1Button.text -> option1Button.setBackgroundResource(R.drawable.round_back_red)
+            option2Button.text -> option2Button.setBackgroundResource(R.drawable.round_back_red)
+            option3Button.text -> option3Button.setBackgroundResource(R.drawable.round_back_red)
+            option4Button.text -> option4Button.setBackgroundResource(R.drawable.round_back_red)
+        }
+    }
 }
