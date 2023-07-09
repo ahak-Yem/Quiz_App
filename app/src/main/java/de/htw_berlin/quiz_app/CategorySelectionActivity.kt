@@ -26,16 +26,17 @@ class CategorySelectionActivity:AppCompatActivity() {
         recyclerView = findViewById(R.id.categoryRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        //Init the DB field with a CategoryDB object
+        //Init the DB field with a db object
         _db=DB()
 
         /*Calling the getCategories() of the DB object to fetch the
         categories from our firestore instance*/
         _db.getCategories(onSuccess = { categoryList ->
             // Update the adapter data with the categories from firestore
-            categoryAdapter.data = categoryList
+            categoryAdapter.categoryList = categoryList
         },
             onFailure = { exception ->
+                //TODO:Show a toast instead of logging
                 Log.println(Log.ERROR,"Read Categories",exception.toString())
             })
 
@@ -50,14 +51,12 @@ class CategorySelectionActivity:AppCompatActivity() {
         //setting the adapter to handle the RecyclerView content
         recyclerView.adapter = categoryAdapter
 
+
     }
 
     //A function to navigate to next Screen
     private fun navigateToNextScreen(category: Category) {
-        /*TODO: Heltonn, wenn du NormalModus fertig hast, nutze das hier. Unkommentieren
-            und statt NextActivity sollst du dein neues Activity aufrufen.*/
-        //val intent = Intent(this, NextActivity::class.java)
-        //intent.putExtra("category", category) /*(Key:"category", Value:ausgewählte category)*/
-        //startActivity(intent) /*Startet nächstes Activity*/
+        /*TODO: Navigate to NormalerModus */
     }
 }
+//TODO:delete this file if the fragment works or adjust it to use the fragment

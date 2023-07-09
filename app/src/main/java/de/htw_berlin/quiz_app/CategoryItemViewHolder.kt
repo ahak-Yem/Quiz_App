@@ -1,13 +1,15 @@
 package de.htw_berlin.quiz_app
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import de.htw_berlin.quiz_app.databinding.ItemCategoryBinding
 
-//Takes the view item passed in the constructor and fetch view elements to prepare them to get the data
-class CategoryItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    // Declaration of all views present in item_category
-    val categoryIcon: ImageView = itemView.findViewById(R.id.categoryIcon)
-    val categoryName: TextView = itemView.findViewById(R.id.categoryName)
+//A ViewHolder that takes the binding object in the constructor & pass its root to the ViewHolder of the RecyclerView class
+class CategoryItemViewHolder (private val binding:ItemCategoryBinding):
+    RecyclerView.ViewHolder(binding.root){
+
+    //binds the category object to the category variable in the item_category layout
+    fun bind(category: Category){
+        binding.category=category
+        binding.executePendingBindings()
+    }
 }
