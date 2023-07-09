@@ -34,12 +34,12 @@ class DB () {
         }.addOnFailureListener { exception ->
             onFailure(exception)
         }
-     }
+    }
 
     //This function fetches all questions from the db filter with category and choose random 10 questions from them
     //Using the onSuccess(list) callback function we will pass the questions
-    fun getRandomQuestions(category: Category,selectCount:Int ,maxRetries: Int = 3, onSuccess: (List<Question>) -> Unit) {
-        //The quesy to fetches all questions from a category
+    fun getRandomQuestions(category: Category,selectCount:Int , onSuccess: (List<Question>) -> Unit,onFailure: (Exception) -> Unit,maxRetries: Int = 3) {
+        //The query to fetch all questions of a category
         val allQuestionsQuery = firestore.collection("Questions").whereEqualTo("category", category)
         //Fetches the questions by applying the query
         allQuestionsQuery.get()
@@ -52,9 +52,9 @@ class DB () {
             }
             .addOnFailureListener { exception ->
                 if (maxRetries > 0) {
-                    getRandomQuestions(category, selectCount,maxRetries - 1, onSuccess)//retries the process 3 times just in case
+                    getRandomQuestions(category, selectCount, onSuccess,onFailure,maxRetries - 1)//retries the process 3 times just in case
                 } else {
-                    // TODO: Handle the failure and provide an appropriate callback or error message
+                    onFailure(exception)
                 }
             }
     }
