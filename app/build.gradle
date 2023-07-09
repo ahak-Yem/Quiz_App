@@ -52,5 +52,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx' //TODO:Check if this useful
     implementation("com.google.firebase:firebase-firestore-ktx")
-
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.6.0")
 }
