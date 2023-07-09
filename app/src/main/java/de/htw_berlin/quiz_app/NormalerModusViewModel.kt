@@ -66,7 +66,7 @@ class NormalerModusViewModel : ViewModel() {
     val questionText: LiveData<String> get()=_questionText
 
     //The answer options will be saved here
-    private val _options=AnswerSuggestionsList<String>()
+    private val _options=MutableLiveData<List<String>>()
     //Getter for options
     val options: MutableLiveData<List<String>> get() = _options
 
