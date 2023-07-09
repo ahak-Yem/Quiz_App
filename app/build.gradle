@@ -54,5 +54,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx' //TODO:Check if this useful
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation 'org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4'
-
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.6.0")
 }
