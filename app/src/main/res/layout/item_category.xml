@@ -1,65 +1,74 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/blackfresh"
-    android:layout_gravity="center_vertical"
-    android:padding="6dp"
-    tools:ignore="UseCompoundDrawables">
-    <com.google.android.material.card.MaterialCardView
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="category"
+            type="de.htw_berlin.quiz_app.Category" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="10dp"
-        android:soundEffectsEnabled="true"
-        android:paddingBottom="16dp"
-        >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/blackfresh"
+        android:layout_gravity="center_vertical"
+        android:padding="6dp"
+        tools:ignore="UseCompoundDrawables">
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp">
-            <!--tools:ignore="UseCompoundDrawables">-->
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            android:soundEffectsEnabled="true"
+            android:paddingBottom="16dp"
+            >
 
-            <ImageView
-                android:id="@+id/categoryIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/category_programming"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/sport_category_pictogram" />
-
-            <TextView
-                android:id="@+id/categoryName"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/purple_700"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/arrowRight"
-                app:layout_constraintHorizontal_bias="0.11"
-                app:layout_constraintStart_toEndOf="@+id/categoryIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.509"
-                tools:text="Programmierung" />
+                android:orientation="horizontal"
+                android:padding="15dp">
+                <!--tools:ignore="UseCompoundDrawables">-->
 
-            <ImageView
-                android:id="@+id/arrowRight"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="2dp"
-                android:src="@drawable/baseline_chevron_right_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/categoryIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/category_programming"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@{category.iconPath}"
+                    tools:src="@drawable/sport_category_pictogram" />
+
+                <TextView
+                    android:id="@+id/categoryName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/purple_700"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/arrowRight"
+                    app:layout_constraintHorizontal_bias="0.11"
+                    app:layout_constraintStart_toEndOf="@+id/categoryIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.509"
+                    android:text="@{category.name}"
+                    tools:text="Programmierung" />
+
+                <ImageView
+                    android:id="@+id/arrowRight"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="2dp"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>
