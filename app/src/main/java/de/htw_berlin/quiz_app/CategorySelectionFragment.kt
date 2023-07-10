@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.htw_berlin.quiz_app.databinding.FragmentCategorySelectionBinding
 
@@ -56,6 +57,8 @@ class CategorySelectionFragment : Fragment() {
     }
 
     private fun navigateToNextScreen(category: Category) {
-        // TODO: Navigate to the next screen with the selected category
+        val action = CategorySelectionFragmentDirections
+            .actionCategorySelectionFragmentToNormalerModusFragment(category)
+        findNavController().navigate(action)
     }
 }
