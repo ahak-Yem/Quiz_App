@@ -5,6 +5,7 @@
     <string name="category_sports" ><a href="https://www.freepik.com/free-vector/sports-icons_1077033.htm#query=sports%20pictograms&amp;position=0&amp;from_view=keyword&amp;track=ais">Image by ibrandify on Freepik</a></string>
     <string name="category_music" ><a href="https://www.flaticon.com/free-icons/music" title="music icons">Music icons created by Freepik - Flaticon</a></string>
     <string name="category_geography" ><a href="https://www.flaticon.com/free-icons/geography" title="geography icons">Geography icons created by Freepik - Flaticon</a></string>
+    <string name="default_category" ><a href="https://www.freepik.com/icons/quiz">Icon by Talha Dogar</a></string>
     <string name="score_format">Score: %1$s/10</string>
     <string name="timer_format">Timer: %d s</string>
 </resources>
