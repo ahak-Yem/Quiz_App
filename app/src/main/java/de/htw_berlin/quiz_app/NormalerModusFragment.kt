@@ -9,28 +9,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+//import androidx.navigation.NavArgs
+//import androidx.navigation.fragment.navArgs
 import de.htw_berlin.quiz_app.databinding.FragmentNormalerModusBinding
+
+
 //import android.content.IntentSender.OnFinished
 //import androidx.lifecycle.get
 //import android.os.CountDownTimer
 
 class NormalerModusFragment : Fragment() {
-    //The binding object that update our layout and inflate it
-    private lateinit var binding: FragmentNormalerModusBinding
-    //The ViewModel that handles the logic and date of the layout
-    private lateinit var normalerModusViewModel: NormalerModusViewModel
+    private lateinit var binding: FragmentNormalerModusBinding    //The binding object that update our layout and inflate it
+    private lateinit var normalerModusViewModel: NormalerModusViewModel    //The ViewModel that handles the logic and data of the layout
+    //private lateinit var category: Category //The passed argument in action
 
-    //TODO(Can be deleted later?)
-    companion object {
-        //fun newInstance() = NormalerModusFragment()
-    }
     //Run when this fragment is called
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_normaler_modus, container, false) //Inflate the binding obj
         normalerModusViewModel = ViewModelProvider(this)[NormalerModusViewModel::class.java] //Define the ViewModel
         binding.normalerModusViewModel = normalerModusViewModel //Sets/Bind the ViewModel to work on the fragment
         binding.lifecycleOwner = this //Starts the life cycle of this binding object
-        //TODO:I need to pass the category in this function call to fetch a question of a specific category
+        //TODO: Get Argument and pass it to fetchQuestions()
+        arguments?.let {
+            //val safeArgs =
+            //ategory = safeArgs.category
+        }
         //normalerModusViewModel.fetchQuestions()
         this.setListnerForOptionButtons()
         //To start counting the time
