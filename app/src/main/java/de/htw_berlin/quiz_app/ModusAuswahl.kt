@@ -12,13 +12,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.NavController
 
 
 class ModusAuswahl : Fragment() {
-    // TODO: Rename and change types of parameters
     private var nameTextView: TextView? = null
     private var hilfeTextView: TextView? = null
-
+    private lateinit var navController:NavController
 
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class ModusAuswahl : Fragment() {
         normalModeButton.setOnClickListener {
             val intent = Intent(requireActivity(), CategorySelectionActivity::class.java)
             startActivity(intent)
-        }
+        }//TODO: This should be removed after achieving navigation using NavGraph
         val spielmodusButton = view.findViewById<Button>(R.id.spielmodusButton)
         spielmodusButton.setOnClickListener {
             val fragment = Spielmodus() // Remplacez par le fragment Spielmodus
@@ -64,7 +64,6 @@ class ModusAuswahl : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
-
 
 
 
