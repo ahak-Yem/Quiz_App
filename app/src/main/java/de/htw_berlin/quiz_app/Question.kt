@@ -1,7 +1,7 @@
 package de.htw_berlin.quiz_app
 import com.google.firebase.firestore.DocumentReference
 
-//data class Category(val id:String,val name:String,val iconPath:String)
+//data class Question. Sieht wie die Firestore Dokument aus.
 data class Question(
     val id: String,
     val text: String?,
