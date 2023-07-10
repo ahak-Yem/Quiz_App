@@ -16,7 +16,7 @@ class CategorySelectionActivity:AppCompatActivity() {
             .findFragmentById(R.id.subFragment) as NavHostFragment
         navController=subNavHostFragment.navController
 
-        setupActionBarWithNavController(navController)
+        //setupActionBarWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

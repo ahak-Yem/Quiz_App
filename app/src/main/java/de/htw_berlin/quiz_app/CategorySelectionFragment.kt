@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.htw_berlin.quiz_app.databinding.FragmentCategorySelectionBinding
@@ -21,6 +22,7 @@ class CategorySelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_category_selection,container,false)
+        categoryViewModel=ViewModelProvider(this)[CategoryViewModel::class.java]
         return binding.root
     }
 

@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 class ModusAuswahl : Fragment() {
     private var nameTextView: TextView? = null
     private var hilfeTextView: TextView? = null
-    private lateinit var navController:NavController
+    //private lateinit var navController:NavController
 
 
     override fun onCreateView(
