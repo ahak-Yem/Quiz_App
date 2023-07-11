@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 //import androidx.navigation.NavArgs
 //import androidx.navigation.fragment.navArgs
 import de.htw_berlin.quiz_app.databinding.FragmentNormalerModusBinding
+//import de.htw_berlin.quiz_app.NormalerModusFragmentArgs
+
 
 
 //import android.content.IntentSender.OnFinished
@@ -21,7 +23,7 @@ import de.htw_berlin.quiz_app.databinding.FragmentNormalerModusBinding
 class NormalerModusFragment : Fragment() {
     private lateinit var binding: FragmentNormalerModusBinding    //The binding object that update our layout and inflate it
     private lateinit var normalerModusViewModel: NormalerModusViewModel    //The ViewModel that handles the logic and data of the layout
-    //private lateinit var category: Category //The passed argument in action
+    private lateinit var category: Category //The passed argument in action
 
     //Run when this fragment is called
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -29,12 +31,11 @@ class NormalerModusFragment : Fragment() {
         normalerModusViewModel = ViewModelProvider(this)[NormalerModusViewModel::class.java] //Define the ViewModel
         binding.normalerModusViewModel = normalerModusViewModel //Sets/Bind the ViewModel to work on the fragment
         binding.lifecycleOwner = this //Starts the life cycle of this binding object
-        //TODO: Get Argument and pass it to fetchQuestions()
         arguments?.let {
-            //val safeArgs =
-            //ategory = safeArgs.category
+            val safeArgs = NormalerModusFragmentArgs.fromBundle(it)
+            category = safeArgs.category
         }
-        //normalerModusViewModel.fetchQuestions()
+        normalerModusViewModel.fetchQuestions(category,requireContext())
         this.setListnerForOptionButtons()
         //To start counting the time
         normalerModusViewModel.startTimer()

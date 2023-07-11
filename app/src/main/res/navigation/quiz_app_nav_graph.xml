@@ -10,10 +10,10 @@
         <action
             android:id="@+id/action_categorySelectionFragment_to_normalerModusFragment"
             app:destination="@id/normalerModusFragment" >
-            <argument
-            android:name="selectedCategory"
-            app:argType="de.htw_berlin.quiz_app.Category" />
         </action>
+        <argument
+            android:name="category"
+            app:argType="de.htw_berlin.quiz_app.Category" />
     </fragment>
     <fragment
         android:id="@+id/normalerModusFragment"
@@ -23,6 +23,10 @@
             android:id="@+id/action_normalerModusFragment_to_categorySelectionFragment3"
             app:destination="@id/categorySelectionFragment"
             app:popUpTo="@id/categorySelectionFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true">
+        </action>
+        <argument
+            android:name="category"
+            app:argType="de.htw_berlin.quiz_app.Category" />
     </fragment>
 </navigation>

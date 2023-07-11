@@ -13,7 +13,7 @@ class NormalerModusViewModel : ViewModel() {
     private lateinit var _db:DB
     private var questionIndex: Int = 0 // Keeps track of the current question index starting with 0
     private lateinit var questions: List<Question> // Holds all fetched questions
-
+    private lateinit var _context: Context
 
     //------------------------------------Timer------------------------------------------
     //Saves the timer value
@@ -74,6 +74,7 @@ class NormalerModusViewModel : ViewModel() {
     //This function calls the getRandomQuestions function in the DB class
     fun fetchQuestions(category: Category,context:Context) {
         _db = DB()
+        _context=context
         //Call the getRandom question passing the callback function onSuccess
         _db.getRandomQuestions(category, 10, onSuccess = { fetchedQuestions ->
             questions = fetchedQuestions
@@ -89,11 +90,16 @@ class NormalerModusViewModel : ViewModel() {
 
     //Display current question according to the questionIndex member of the class
     private fun displayCurrentQuestion() {
+        if (questions.isNotEmpty() && questionIndex < questions.size) {
         val currentQuestion = questions.getOrNull(questionIndex)
         _questionText.value = currentQuestion?.text?:""//define the var that will be shown in the layout
 
         val options:List<String> = currentQuestion?.suggestions ?: emptyList()
         _options.value = options
+        }
+        else{
+            Toast.makeText(_context,"Empty List",Toast.LENGTH_SHORT).show()
+        }
     }
 
 
