@@ -174,8 +174,7 @@ class Spielmodus : Fragment() {
                 countdownTimer.start()
             } else {
                 // Alle Fragen wurden gestellt
-                // Hier kannst du es behandeln, wie du möchtest, z.B. eine Nachricht anzeigen oder den Quiz-Vorgang neu starten.
-                // Beispiel für eine Toast-Nachricht:
+
                 Toast.makeText(requireContext(), "Quiz abgeschlossen!", Toast.LENGTH_SHORT).show()
 
                 // Quiz-Vorgang neu starten:
@@ -206,7 +205,7 @@ class Spielmodus : Fragment() {
             nextButton.isEnabled = true
         }
 
-        // 
+        //
         option1Button.isEnabled = false
         option2Button.isEnabled = false
         option3Button.isEnabled = false
