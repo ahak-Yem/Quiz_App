@@ -21,7 +21,7 @@ class NormalerModusViewModel : ViewModel() {
     val timer: MutableLiveData<Long> get() = _timer
 
     //Handles the timer count down value, starts with 30000ms and counts down 1000ms everytime
-    private var countDownTimer: CountDownTimer = object : CountDownTimer(60000, 1000) {
+    private var countDownTimer: CountDownTimer = object : CountDownTimer(30000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // Update the timer value
             _timer.value = millisUntilFinished / 1000
@@ -70,7 +70,6 @@ class NormalerModusViewModel : ViewModel() {
     //Getter for options
     val options: MutableLiveData<List<String>> get() = _options
 
-    //TODO: Use this to fetchQuestions when creating the fragment
     //This function calls the getRandomQuestions function in the DB class
     fun fetchQuestions(category: Category,context:Context) {
         _db = DB()
@@ -91,6 +90,7 @@ class NormalerModusViewModel : ViewModel() {
 
     //Display current question according to the questionIndex member of the class
     private fun displayCurrentQuestion() {
+        startTimer()
         if (questions.isNotEmpty() && questionIndex < questions.size) {
         val currentQuestion = questions.getOrNull(questionIndex)
         _questionText.value = currentQuestion?.text?:""//define the var that will be shown in the layout
@@ -99,6 +99,7 @@ class NormalerModusViewModel : ViewModel() {
         _options.value = options
         }
         else{
+            cancelTimer()
             Toast.makeText(_context,"Empty List",Toast.LENGTH_SHORT).show()
         }
     }
@@ -115,7 +116,9 @@ class NormalerModusViewModel : ViewModel() {
             displayCurrentQuestion()
         }
         else{
-            //TODO: Show final score screen
+            cancelTimer()
+            _score.value=0
+            //TODO: Navigate & show final score screen.
         }
     }
 }
