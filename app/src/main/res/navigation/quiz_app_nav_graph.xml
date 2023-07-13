@@ -63,5 +63,21 @@
             app:destination="@id/modusAuswahl"
             app:popUpTo="@id/modusAuswahl"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_spielmodus_to_lost"
+            app:destination="@id/lost" />
+        <action
+            android:id="@+id/action_spielmodus_to_win"
+            app:destination="@id/win" />
     </fragment>
+    <fragment
+        android:id="@+id/lost"
+        android:name="de.htw_berlin.quiz_app.Lost"
+        android:label="fragment_lost"
+        tools:layout="@layout/fragment_lost" />
+    <fragment
+        android:id="@+id/win"
+        android:name="de.htw_berlin.quiz_app.Win"
+        android:label="fragment_win"
+        tools:layout="@layout/fragment_win" />
 </navigation>
