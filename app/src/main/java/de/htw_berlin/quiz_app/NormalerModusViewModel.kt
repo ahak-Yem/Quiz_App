@@ -2,7 +2,6 @@ package de.htw_berlin.quiz_app
 
 import android.content.Context
 import android.os.CountDownTimer
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.widget.Toast
@@ -17,12 +16,12 @@ class NormalerModusViewModel : ViewModel() {
 
     //------------------------------------Timer------------------------------------------
     //Saves the timer value
-    private val _timer = MutableLiveData<Long>()
+    private var _timer = MutableLiveData<Long>()
     //Getter for the timer to be called on the layout
-    val timer: LiveData<Long> get() = _timer
+    val timer: MutableLiveData<Long> get() = _timer
 
     //Handles the timer count down value, starts with 30000ms and counts down 1000ms everytime
-    private val countDownTimer: CountDownTimer = object : CountDownTimer(30000, 1000) {
+    private var countDownTimer: CountDownTimer = object : CountDownTimer(60000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // Update the timer value
             _timer.value = millisUntilFinished / 1000
@@ -35,7 +34,8 @@ class NormalerModusViewModel : ViewModel() {
             }
             else{
                 //TODO: Show final score screen
-            }        }
+            }
+        }
     }
 
     //starts the timer from the beginning
@@ -52,21 +52,21 @@ class NormalerModusViewModel : ViewModel() {
 
     //-----------------------------------Score-------------------------------------------
     //Saves the score value and it will start with 0
-    private val _score = MutableLiveData<Int>(0)
+    private var _score = MutableLiveData<Int>(0)
     //Getter of score for layout
-    val score: LiveData<Int> get()=_score
+    val score: MutableLiveData<Int> get()=_score
 
 //------------------------------Score logic ends here--------------------------------
 
 
     //-------------------------------Questions & Options---------------------------------
     //The question text will be saved here
-    private  val _questionText = MutableLiveData<String>("")
+    private  var _questionText = MutableLiveData<String>("")
     //Getter for question text
-    val questionText: LiveData<String> get()=_questionText
+    val questionText: MutableLiveData<String> get()=_questionText
 
     //The answer options will be saved here
-    private val _options=MutableLiveData<List<String>>()
+    private var _options=MutableLiveData<List<String>>()
     //Getter for options
     val options: MutableLiveData<List<String>> get() = _options
 
@@ -80,6 +80,7 @@ class NormalerModusViewModel : ViewModel() {
             questions = fetchedQuestions
             if (questionIndex>=questions.size) {
                 questionIndex = 0 // Reset the question index to start from the first question
+                _score= MutableLiveData<Int>(0)
             }
             // Display the first question
             displayCurrentQuestion()
@@ -106,7 +107,6 @@ class NormalerModusViewModel : ViewModel() {
     //This is called to indicate if the pressed button is correct
     fun answerQuestion(buttonClicked: Int) {
         val currentQuestion = questions.getOrNull(questionIndex)
-
         if (currentQuestion?.answer==currentQuestion?.suggestions?.get(buttonClicked)) {
             _score.value = _score.value?.plus(1)
         }

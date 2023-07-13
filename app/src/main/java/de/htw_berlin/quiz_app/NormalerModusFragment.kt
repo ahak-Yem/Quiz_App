@@ -56,10 +56,9 @@ class NormalerModusFragment : Fragment() {
             binding.option3Button,
             binding.option4Button
         )
-        optionButtons.forEach{optionButton->
+        optionButtons.forEachIndexed { index, optionButton ->
             optionButton.setOnClickListener {
-                val optionTag = it.tag as Int
-                normalerModusViewModel.answerQuestion(optionTag)
+                normalerModusViewModel.answerQuestion(index)
             }
         }
     }

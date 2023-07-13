@@ -1,4 +1,5 @@
 package de.htw_berlin.quiz_app
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
@@ -38,24 +39,39 @@ class DB () {
 
     //This function fetches all questions from the db filter with category and choose random 10 questions from them
     //Using the onSuccess(list) callback function we will pass the questions
-    fun getRandomQuestions(category: Category,selectCount:Int , onSuccess: (List<Question>) -> Unit,onFailure: (Exception) -> Unit,maxRetries: Int = 3) {
-        //The query to fetch all questions of a category
-        val allQuestionsQuery = firestore.collection("Questions").whereEqualTo("category", category)
-        //Fetches the questions by applying the query
-        allQuestionsQuery.get()
-            .addOnSuccessListener { querySnapshot ->
-                val allQuestions: List<Question> = querySnapshot.documents.mapNotNull { documentSnapshot ->
-                    documentSnapshot.toObject(Question::class.java) //Saves all questions that are not null in a List<Question>
+    fun getRandomQuestions(category: Category,selectCount:Int , onSuccess: (List<Question>) -> Unit,onFailure: (Exception) -> Unit) {
+        val questionsList= mutableListOf<Question>()
+        firestore.collection("Questions")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val questionId = document.id
+                    val questionLevel = document.data["Level"] as String
+                    val questionCategory = document.data["Category"] as? DocumentReference
+                    val questionText = document.data["Text"] as String
+                    val suggestions = document.data["Suggestions"] as? List<String>
+                    val answer = document.data["Answer"] as String
+                    if(category.name=="Geographies" && questionCategory?.id == "GeographyCat"){
+                        questionsList.add(Question(questionId,questionText,questionCategory,questionLevel,suggestions,answer))
+                    }
+                    else if(category.name=="Programmierung" && questionCategory?.id == "ProgrammierungCat"){
+                        questionsList.add(Question(questionId,questionText,questionCategory,questionLevel,suggestions,answer))
+                    }
+                    else if(category.name=="Sport" && questionCategory?.id == "SportsCat"){
+                        questionsList.add(Question(questionId,questionText,questionCategory,questionLevel,suggestions,answer))
+                    }
+                    else if(category.name=="Mathe" && questionCategory?.id == "MathCat"){
+                        questionsList.add(Question(questionId,questionText,questionCategory,questionLevel,suggestions,answer))
+                    }
+                    else if(category.name=="Musik" && questionCategory?.id == "MusicCat"){
+                        questionsList.add(Question(questionId,questionText,questionCategory,questionLevel,suggestions,answer))
+                    }
                 }
-                val randomQuestions:List<Question> = selectRandomQuestions(allQuestions, selectCount)//Select # questions from all
-                onSuccess(randomQuestions)//returns the fetched questions
+                val finalQuestions= selectRandomQuestions(questionsList,selectCount)
+                onSuccess(finalQuestions)
             }
             .addOnFailureListener { exception ->
-                if (maxRetries > 0) {
-                    getRandomQuestions(category, selectCount, onSuccess,onFailure,maxRetries - 1)//retries the process 3 times just in case
-                } else {
                     onFailure(exception)
-                }
             }
     }
 
