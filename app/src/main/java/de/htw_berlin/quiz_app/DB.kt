@@ -93,4 +93,8 @@ class DB () {
             return questions
         }
     }
+
+    private fun startSession(question: Question){
+
+    }
 }
