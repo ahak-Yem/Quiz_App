@@ -7,5 +7,6 @@
     <string name="category_geography" ><a href="https://www.flaticon.com/free-icons/geography" title="geography icons">Geography icons created by Freepik - Flaticon</a></string>
     <string name="default_category" ><a href="https://www.freepik.com/icons/quiz">Icon by Talha Dogar</a></string>
     <string name="score_format">Score: %1$s/10</string>
+    <string name="qCounter_format">Question: %1$s/10</string>
     <string name="timer_format">Timer: %d s</string>
 </resources>

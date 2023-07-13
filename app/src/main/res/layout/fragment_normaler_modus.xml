@@ -8,12 +8,36 @@
             name="normalerModusViewModel"
             type="de.htw_berlin.quiz_app.NormalerModusViewModel" />
     </data>
-
     <!--From here starts design!-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blackfresh">
+
+        <LinearLayout
+            android:id="@+id/counterLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_layout"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/questionLayout"
+            app:layout_constraintEnd_toStartOf="@+id/timerScoreLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/questionsIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{@string/qCounter_format(normalerModusViewModel.qIndex)}'
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:text="Question: 1/10"></TextView>
+        </LinearLayout>
         <!-- Timer and Score -->
         <RelativeLayout
             android:id="@+id/timerScoreLayout"

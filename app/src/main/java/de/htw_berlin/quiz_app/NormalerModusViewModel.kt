@@ -10,9 +10,12 @@ class NormalerModusViewModel : ViewModel() {
 
     //DB instance
     private lateinit var _db:DB
-    private var questionIndex: Int = 0 // Keeps track of the current question index starting with 0
     private lateinit var questions: List<Question> // Holds all fetched questions
     private lateinit var _context: Context
+    private var questionIndex: Int = 0 // Keeps track of the current question index starting with 0
+
+    private val _qIndex = MutableLiveData<Int>(1)
+    val qIndex: MutableLiveData<Int> get() = _qIndex
 
     //------------------------------------Timer------------------------------------------
     //Saves the timer value
@@ -29,6 +32,7 @@ class NormalerModusViewModel : ViewModel() {
 
         override fun onFinish() {
             questionIndex++
+            _qIndex.value=questionIndex+1
             if(questionIndex < questions.size){
                 displayCurrentQuestion()
             }
@@ -78,6 +82,7 @@ class NormalerModusViewModel : ViewModel() {
         _db.getRandomQuestions(category, 10, onSuccess = { fetchedQuestions ->
             questions = fetchedQuestions
             if (questionIndex>=questions.size) {
+                _qIndex.value=1
                 questionIndex = 0 // Reset the question index to start from the first question
                 _score= MutableLiveData<Int>(0)
             }
@@ -92,11 +97,11 @@ class NormalerModusViewModel : ViewModel() {
     private fun displayCurrentQuestion() {
         startTimer()
         if (questions.isNotEmpty() && questionIndex < questions.size) {
-        val currentQuestion = questions.getOrNull(questionIndex)
-        _questionText.value = currentQuestion?.text?:""//define the var that will be shown in the layout
+            val currentQuestion = questions.getOrNull(questionIndex)
+            _questionText.value = currentQuestion?.text?:""//define the var that will be shown in the layout
 
-        val options:List<String> = currentQuestion?.suggestions ?: emptyList()
-        _options.value = options
+            val options:List<String> = currentQuestion?.suggestions ?: emptyList()
+            _options.value = options
         }
         else{
             cancelTimer()
@@ -112,12 +117,14 @@ class NormalerModusViewModel : ViewModel() {
             _score.value = _score.value?.plus(1)
         }
         questionIndex++
+        _qIndex.value=questionIndex+1
         if(questionIndex < questions.size){
             displayCurrentQuestion()
         }
         else{
             cancelTimer()
             _score.value=0
+            _qIndex.value=10
             //TODO: Navigate & show final score screen.
         }
     }
