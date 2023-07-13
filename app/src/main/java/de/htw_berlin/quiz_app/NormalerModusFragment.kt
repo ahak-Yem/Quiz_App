@@ -38,7 +38,7 @@ class NormalerModusFragment : Fragment() {
         normalerModusViewModel.fetchQuestions(category,requireContext())
         this.setListnerForOptionButtons()
         //To start counting the time
-        normalerModusViewModel.startTimer()
+
         return binding.root
     }
 

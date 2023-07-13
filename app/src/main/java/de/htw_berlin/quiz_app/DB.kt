@@ -46,12 +46,12 @@ class DB () {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val questionId = document.id
-                    val questionLevel = document.data["Level"] as String
-                    val questionCategory = document.data["Category"] as? DocumentReference
-                    val questionText = document.data["Text"] as String
-                    val suggestions = document.data["Suggestions"] as? List<String>
-                    val answer = document.data["Answer"] as String
-                    if(category.name=="Geographies" && questionCategory?.id == "GeographyCat"){
+                    val questionLevel = document.data.getValue("Level") as String
+                    val questionCategory = document.data.getValue("Category") as? DocumentReference
+                    val questionText = document.data.getValue("Text") as String
+                    val suggestions = document.data.getValue("Suggestions") as? List<String>
+                    val answer = document.data.getValue("Answer") as String
+                    if(category.name=="Geographie" && questionCategory?.id == "GeographyCat"){
                         questionsList.add(Question(questionId,questionText,questionCategory,questionLevel,suggestions,answer))
                     }
                     else if(category.name=="Programmierung" && questionCategory?.id == "ProgrammierungCat"){
@@ -77,18 +77,19 @@ class DB () {
 
     //This method selects 10 random questions
     private fun selectRandomQuestions(questions: List<Question>, count: Int): List<Question> {
+        val randomIndices = mutableListOf<Int>()
+        val onlyTenQuestions= mutableListOf<Question>()
         if (count < questions.size && count > 0) {
-            val randomIndices = mutableListOf<Int>()
             while (randomIndices.size < count) {
-                val randomIndex = Random.nextInt(1, questions.size + 1)
-                val questionId = "Q$randomIndex"
-                val index = questions.indexOfFirst { it.id == questionId }
-                if (index != -1 && index !in randomIndices) {
-                    randomIndices.add(index)
+                val randomIndex = Random.nextInt(0, questions.size)
+                if (randomIndex != -1 && randomIndex !in randomIndices) {
+                    randomIndices.add(randomIndex)
+                    onlyTenQuestions.add(questions[randomIndex])
                 }
             }
-            return randomIndices.map { questions[it] }
-        } else {
+            return onlyTenQuestions
+        }
+        else {
             return questions
         }
     }
