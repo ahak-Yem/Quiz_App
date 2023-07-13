@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.NavController
+
 
 
 class ModusAuswahl : Fragment() {
@@ -39,7 +39,7 @@ class ModusAuswahl : Fragment() {
         }//TODO: This should be removed after achieving navigation using NavGraph
         val spielmodusButton = view.findViewById<Button>(R.id.spielmodusButton)
         spielmodusButton.setOnClickListener {
-            val fragment = Spielmodus() // Remplacez par le fragment Spielmodus
+            val fragment = Spielmodus()
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)
@@ -48,7 +48,7 @@ class ModusAuswahl : Fragment() {
         }
         hilfeTextView = view.findViewById(R.id.hilfe)
         hilfeTextView?.setOnClickListener {
-            // Action à effectuer lorsque le TextView est cliqué
+
             showDialog()
         }
 
