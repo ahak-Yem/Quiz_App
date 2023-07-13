@@ -1,5 +1,3 @@
-package de.htw_berlin.quiz_app
-
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +11,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
-
+import de.htw_berlin.quiz_app.ModusAuswahl
+import de.htw_berlin.quiz_app.R
 
 class Anmeldung : Fragment() {
     private var nameEditText: EditText? = null
@@ -53,19 +52,11 @@ class Anmeldung : Fragment() {
                                 val storedName = document.getString("Name")
                                 if (storedName == name) {
                                     // Cas 1: Utilisateur existant avec le bon nom
-                                    val fragment = ModusAuswahl()
-                                    val bundle = Bundle()
-                                    bundle.putString("name", name)
-                                    fragment.arguments = bundle
-                                    val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-                                    val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                                    transaction.replace(R.id.fragment_container, fragment)
-                                    transaction.addToBackStack(null)
-                                    transaction.commit()
+                                    saveLoginState(name)
+                                    redirectToModusAuswahl(name)
                                 } else {
                                     // Cas 3: Utilisateur existant avec un mauvais nom
-                                    errorTextView?.text = "Bitte wählen Sie einen anderen Spitzname ein."
-                                    errorTextView?.visibility = View.VISIBLE
+                                    showError("Bitte wählen Sie einen anderen Spitzname ein.")
                                 }
                             } else {
                                 // Cas 2: Nouvel utilisateur
@@ -75,51 +66,57 @@ class Anmeldung : Fragment() {
 
                                 db.collection("Users").document(spitzname).set(data)
                                     .addOnSuccessListener {
-                                        val fragment = ModusAuswahl()
-                                        val bundle = Bundle()
-                                        bundle.putString("name", name)
-                                        fragment.arguments = bundle
-                                        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-                                        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                                        transaction.replace(R.id.fragment_container, fragment)
-                                        transaction.addToBackStack(null)
-                                        transaction.commit()
+                                        saveLoginState(name)
+                                        redirectToModusAuswahl(name)
                                     }
                                     .addOnFailureListener {
-                                        errorTextView?.text = "Fehler beim Registrieren des Benutzers."
-                                        errorTextView?.visibility = View.VISIBLE
+                                        showError("Fehler beim Registrieren des Benutzers.")
                                     }
                             }
                         } else {
                             // Erreur lors de l'accès à la base de données
-                            errorTextView?.text = "Fehler beim Zugriff auf die Datenbank."
-                            errorTextView?.visibility = View.VISIBLE
+                            showError("Fehler beim Zugriff auf die Datenbank.")
                         }
                     }
             } else {
-                errorTextView?.text = "Bitte geben Sie Name und Spitzname ein."
-                errorTextView?.visibility = View.VISIBLE
+                showError("Bitte geben Sie Name und Spitzname ein.")
             }
         }
+
         val sharedPreferences = requireActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
         if (isLoggedIn) {
             // Utilisateur déjà connecté, rediriger vers le fragment ModusAuswahl
             val name = sharedPreferences.getString("name", "") ?: ""
-            val fragment = ModusAuswahl()
-            val bundle = Bundle()
-            bundle.putString("name", name)
-            fragment.arguments = bundle
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            redirectToModusAuswahl(name)
         }
 
         return view
     }
 
+    private fun saveLoginState(name: String) {
+        val sharedPreferences = requireActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", true)
+        editor.putString("name", name)
+        editor.apply()
+    }
 
+    private fun redirectToModusAuswahl(name: String) {
+        val fragment = ModusAuswahl()
+        val bundle = Bundle()
+        bundle.putString("name", name)
+        fragment.arguments = bundle
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    private fun showError(errorMessage: String) {
+        errorTextView?.text = errorMessage
+        errorTextView?.visibility = View.VISIBLE
+    }
 }
