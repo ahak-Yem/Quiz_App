@@ -57,15 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="15dp"
+            android:layout_marginTop="4dp"
             android:background="@color/cardview_light_background"
             android:gravity="center"
             android:orientation="vertical"
+            android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35000002">
+            app:layout_constraintTop_toBottomOf="@+id/timerScoreLayout">
 
             <!--Change to dynamic question & style-->
             <!-- Question -->
@@ -74,10 +74,10 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:text="@{normalerModusViewModel.questionText}"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                android:text="@{normalerModusViewModel.questionText}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -104,11 +104,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:padding="16dp"
-                    android:textAlignment="center"
                     android:background="@drawable/button_gradient"
-                    android:text="@{normalerModusViewModel.options.get(0)}"
+                    android:padding="16dp"
                     android:tag="0"
+                    android:text="@{normalerModusViewModel.options.get(0)}"
+                    android:textAlignment="center"
                     tools:text="Option 1" />
 
                 <Button
@@ -119,11 +119,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:padding="16dp"
-                    android:textAlignment="center"
                     android:background="@drawable/button_gradient"
+                    android:padding="16dp"
                     android:tag="1"
                     android:text="@{normalerModusViewModel.options.get(1)}"
+                    android:textAlignment="center"
 
                     tools:text="Option 2" />
 
@@ -135,11 +135,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:padding="16dp"
-                    android:textAlignment="center"
                     android:background="@drawable/button_gradient"
-                    android:text="@{normalerModusViewModel.options.get(2)}"
+                    android:padding="16dp"
                     android:tag="2"
+                    android:text="@{normalerModusViewModel.options.get(2)}"
+                    android:textAlignment="center"
                     tools:text="Option 3" />
 
                 <Button
@@ -150,11 +150,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:padding="16dp"
-                    android:textAlignment="center"
                     android:background="@drawable/button_gradient"
-                    android:text="@{normalerModusViewModel.options.get(3)}"
+                    android:padding="16dp"
                     android:tag="3"
+                    android:text="@{normalerModusViewModel.options.get(3)}"
+                    android:textAlignment="center"
                     tools:text="Option 4" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
