@@ -35,6 +35,8 @@ class DB () {
         }.addOnFailureListener { exception ->
             onFailure(exception)
         }
+
+
     }
 
     //This function fetches all questions from the db filter with category and choose random 10 questions from them
