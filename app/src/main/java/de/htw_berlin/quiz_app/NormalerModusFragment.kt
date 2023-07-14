@@ -37,6 +37,9 @@ class NormalerModusFragment : Fragment() {
             val safeArgs = NormalerModusFragmentArgs.fromBundle(it)
             category = safeArgs.category
         }
+        if (spitzname != null) {
+            normalerModusViewModel.setNickname(spitzname)
+        }
         normalerModusViewModel.fetchQuestions(category,requireContext())
         this.setListnerForOptionButtons()
         //To start counting the time

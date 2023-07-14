@@ -13,9 +13,14 @@ class NormalerModusViewModel : ViewModel() {
     private lateinit var questions: List<Question> // Holds all fetched questions
     private lateinit var _context: Context
     private var questionIndex: Int = 0 // Keeps track of the current question index starting with 0
-
+    private lateinit var _session:Session
     private val _qIndex = MutableLiveData<Int>(1)
     val qIndex: MutableLiveData<Int> get() = _qIndex
+
+    private lateinit var _spitzname:String
+    fun setNickname(nickname:String){
+        _spitzname=nickname
+    }
 
     //------------------------------------Timer------------------------------------------
     //Saves the timer value
@@ -87,6 +92,7 @@ class NormalerModusViewModel : ViewModel() {
                 _score= MutableLiveData<Int>(0)
             }
             // Display the first question
+            _session=_db.startSession(_spitzname,questions,category,"Normaler Modus" )
             displayCurrentQuestion()
         }, onFailure = {
             Toast.makeText(context,"Unerwarteter Fehler!",Toast.LENGTH_SHORT).show()
@@ -115,6 +121,9 @@ class NormalerModusViewModel : ViewModel() {
         val currentQuestion = questions.getOrNull(questionIndex)
         if (currentQuestion?.answer==currentQuestion?.suggestions?.get(buttonClicked)) {
             _score.value = _score.value?.plus(1)
+            if (currentQuestion != null) {
+                _session=_db.updateSession(_session,true,currentQuestion.id,false)
+            }
         }
         questionIndex++
         _qIndex.value=questionIndex+1
@@ -122,6 +131,9 @@ class NormalerModusViewModel : ViewModel() {
             displayCurrentQuestion()
         }
         else{
+            if (currentQuestion != null) {
+                _session=_db.updateSession(_session,false,currentQuestion.id,true)
+            }
             cancelTimer()
             _score.value=0
             _qIndex.value=10
