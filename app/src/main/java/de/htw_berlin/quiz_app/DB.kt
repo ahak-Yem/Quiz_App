@@ -1,10 +1,13 @@
 package de.htw_berlin.quiz_app
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Date
 import kotlin.random.Random
 
 //This class handles communication with DB to fetch the collections
-class DB () {
+class DB {
     //A private attribute field with datatype(FirebaseFirestore) that saves our firestore instance
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
@@ -36,7 +39,6 @@ class DB () {
             onFailure(exception)
         }
     }
-
     //This function fetches all questions from the db filter with category and choose random 10 questions from them
     //Using the onSuccess(list) callback function we will pass the questions
     fun getRandomQuestions(category: Category,selectCount:Int , onSuccess: (List<Question>) -> Unit,onFailure: (Exception) -> Unit) {
@@ -77,7 +79,7 @@ class DB () {
 
     //This method selects 10 random questions
     private fun selectRandomQuestions(questions: List<Question>, count: Int): List<Question> {
-        if (count < questions.size && count > 0) {
+        return if (count < questions.size && count > 0) {
             val randomIndices = mutableListOf<Int>()
             while (randomIndices.size < count) {
                 val randomIndex = Random.nextInt(1, questions.size + 1)
@@ -87,9 +89,51 @@ class DB () {
                     randomIndices.add(index)
                 }
             }
-            return randomIndices.map { questions[it] }
+            randomIndices.map { questions[it] }
         } else {
-            return questions
+            questions
         }
+    }
+
+    fun startSession(spitzname:String, questions: List<Question>, category: Category, mode:String):Session{
+        val questionID=mutableListOf<String>()
+        for (question in questions){
+            questionID.add(question.id)
+        }
+        val countOfDocuments= firestore.collection("Sessions").count().get(AggregateSource.SERVER).result.count+1
+        val session= Session(
+            "Session$countOfDocuments",
+            spitzname,
+            0,
+            "nothing",
+            category.name,
+            mode,
+            Timestamp(Date()),
+            false,
+            questionID as ArrayList<String>
+        )
+        firestore.collection("Sessions").document("Session$countOfDocuments").set(session)
+        return session
+    }
+    fun updateSession(session:Session,incrementScore:Boolean,lastAnsweredQuestion:String,isComplete:Boolean):Session{
+        var currentScore=session.Count_Correct
+        if(incrementScore){
+            currentScore = currentScore!! + 1
+        }
+        val newSession=Session(
+            session.id,
+            session.UserID,
+            currentScore,
+            lastAnsweredQuestion,
+            session.Category,
+            session.Mode,
+            session.Started_At,
+            isComplete,
+            session.Questions
+        )
+
+        val currentSessionDoc = firestore.collection("Sessions").document(session.id)
+        currentSessionDoc.set(newSession)
+        return newSession
     }
 }
