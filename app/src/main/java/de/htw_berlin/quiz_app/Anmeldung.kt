@@ -38,9 +38,11 @@ class Anmeldung : Fragment() {
         errorTextView = view.findViewById(R.id.textinput_error)
 
         val startButton = view.findViewById<Button>(R.id.Start_btn)
+        var spitzname = ""
+        val normalerModusFragment = NormalerModusFragment()
         startButton.setOnClickListener {
             val name = nameEditText?.text.toString()
-            val spitzname = spitznameEditText?.text.toString()
+            spitzname = spitznameEditText?.text.toString()
 
             if (name.isNotEmpty() && spitzname.isNotEmpty()) {
                 val docRef = db.collection("Users").document(spitzname)
@@ -55,8 +57,10 @@ class Anmeldung : Fragment() {
                                     // Cas 1: Utilisateur existant avec le bon nom
                                     val fragment = ModusAuswahl()
                                     val bundle = Bundle()
+                                    bundle.putString("spitzname", spitzname)
                                     bundle.putString("name", name)
                                     fragment.arguments = bundle
+                                    normalerModusFragment.arguments=bundle
                                     val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                                     val transaction: FragmentTransaction = fragmentManager.beginTransaction()
                                     transaction.replace(R.id.fragment_container, fragment)
@@ -77,8 +81,10 @@ class Anmeldung : Fragment() {
                                     .addOnSuccessListener {
                                         val fragment = ModusAuswahl()
                                         val bundle = Bundle()
+                                        bundle.putString("spitzname", spitzname)
                                         bundle.putString("name", name)
                                         fragment.arguments = bundle
+                                        normalerModusFragment.arguments=bundle
                                         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                                         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
                                         transaction.replace(R.id.fragment_container, fragment)
@@ -107,10 +113,13 @@ class Anmeldung : Fragment() {
         if (isLoggedIn) {
             // Utilisateur déjà connecté, rediriger vers le fragment ModusAuswahl
             val name = sharedPreferences.getString("name", "") ?: ""
+            spitzname = sharedPreferences.getString("spitzname", "") ?: ""
             val fragment = ModusAuswahl()
             val bundle = Bundle()
             bundle.putString("name", name)
+            bundle.putString("spitzname", spitzname)
             fragment.arguments = bundle
+            normalerModusFragment.arguments=bundle
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)

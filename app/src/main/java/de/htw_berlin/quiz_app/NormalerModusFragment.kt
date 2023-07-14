@@ -31,6 +31,8 @@ class NormalerModusFragment : Fragment() {
         normalerModusViewModel = ViewModelProvider(this)[NormalerModusViewModel::class.java] //Define the ViewModel
         binding.normalerModusViewModel = normalerModusViewModel //Sets/Bind the ViewModel to work on the fragment
         binding.lifecycleOwner = this //Starts the life cycle of this binding object
+        val name = arguments?.getString("name")
+        val spitzname = arguments?.getString("spitzname")
         arguments?.let {
             val safeArgs = NormalerModusFragmentArgs.fromBundle(it)
             category = safeArgs.category
