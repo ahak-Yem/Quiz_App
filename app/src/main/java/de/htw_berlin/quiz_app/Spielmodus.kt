@@ -1,5 +1,6 @@
 package de.htw_berlin.quiz_app
 
+import Lost
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import android.os.CountDownTimer
+import android.os.Handler
 import android.widget.Toast
 
 class Spielmodus : Fragment() {
@@ -26,6 +28,7 @@ class Spielmodus : Fragment() {
     private lateinit var option4Button: Button
     private lateinit var nextButton: Button
 
+
     private var currentQuestionIndex: Int = 0
     private val totalQuestions: Int = 10
     private lateinit var questionsList: MutableList<String>
@@ -34,6 +37,7 @@ class Spielmodus : Fragment() {
     private var currentQuestion: String = ""
     private var currentAnswer: String = ""
     private var userAnswered: Boolean = false
+    private var correctAnswers: Int = 0
 
     private var timeRemaining: Long = 25000 // 25 Sekunden in Millisekunden
     private lateinit var countdownTimer: CountDownTimer
@@ -52,6 +56,8 @@ class Spielmodus : Fragment() {
         option3Button = view.findViewById(R.id.option3)
         option4Button = view.findViewById(R.id.option4)
         nextButton = view.findViewById(R.id.nextbtn)
+
+
         nextButton.isEnabled = false
         timerTextView = view.findViewById(R.id.timer)
 
@@ -106,9 +112,13 @@ class Spielmodus : Fragment() {
                     }
 
                     override fun onFinish() {
+
+
                         // Zeit ist abgelaufen, hier kannst du es als automatisch falsche Antwort behandeln oder etwas anderes tun
                         // Rufe die Methode checkAnswer mit einer standardmäßig falschen Antwort auf
                         checkAnswer("")
+
+
                     }
                 }
                 countdownTimer.start()
@@ -174,17 +184,12 @@ class Spielmodus : Fragment() {
                 countdownTimer.start()
             } else {
                 // Alle Fragen wurden gestellt
+                currentQuestionIndex++
+                win()
 
                 Toast.makeText(requireContext(), "Quiz abgeschlossen!", Toast.LENGTH_SHORT).show()
 
-                // Quiz-Vorgang neu starten:
-                currentQuestionIndex = 0
-                questionsList.shuffle()
-                loadQuestion()
-                userAnswered = false
-                nextButton.isEnabled = false
-                countdownTimer.cancel()
-                countdownTimer.start()
+
             }
         }
     }
@@ -196,13 +201,17 @@ class Spielmodus : Fragment() {
             highlightButtonGreen(selectedOption)
             userAnswered = true
             nextButton.isEnabled = true
+            correctAnswers++
         }
         else {
             // nicht korrekte
             highlightButtonRed(selectedOption)
             highlightButtonGreen(currentAnswer)
             userAnswered = true
-            nextButton.isEnabled = true
+            Handler().postDelayed({
+                lost()
+            }, 2000) //
+
         }
 
         //
@@ -236,6 +245,38 @@ class Spielmodus : Fragment() {
         option3Button.setBackgroundResource(R.drawable.round_back_white)
         option4Button.setBackgroundResource(R.drawable.round_back_white)
     }
+    private fun lost ()
+    {
+        nextButton.isEnabled = false
+        Handler().postDelayed({
+            //
+            val lostFragment = Lost()
+
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, lostFragment)
+                .commit()
+        }, 3000) // Délai de 3 secondes (3000 millisecondes)
+
+
+
+    }
+
+    private fun win ()
+    {
+        nextButton.isEnabled = false
+        Handler().postDelayed({
+            //
+            val winFragment = Win()
+
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, winFragment)
+                .commit()
+        }, 3000) //
+    }
+
+
 
 
     override fun onDestroyView() {

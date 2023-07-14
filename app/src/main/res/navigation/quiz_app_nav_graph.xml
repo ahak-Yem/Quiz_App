@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/quiz_app_nav_graph"
     app:startDestination="@id/categorySelectionFragment">
     <fragment
@@ -28,5 +29,55 @@
         <argument
             android:name="category"
             app:argType="de.htw_berlin.quiz_app.Category" />
+        <action
+            android:id="@+id/action_normalerModusFragment_to_modusAuswahl"
+            app:destination="@id/modusAuswahl" />
     </fragment>
+    <fragment
+        android:id="@+id/anmeldung"
+        android:name="de.htw_berlin.quiz_app.Anmeldung"
+        android:label="Anmeldung" >
+        <action
+            android:id="@+id/action_anmeldung_to_modusAuswahl"
+            app:destination="@id/modusAuswahl" />
+    </fragment>
+    <fragment
+        android:id="@+id/modusAuswahl"
+        android:name="de.htw_berlin.quiz_app.ModusAuswahl"
+        android:label="fragment_modus_auswahl"
+        tools:layout="@layout/fragment_modus_auswahl" >
+        <action
+            android:id="@+id/action_modusAuswahl_to_spielmodus4"
+            app:destination="@id/spielmodus" />
+        <action
+            android:id="@+id/action_modusAuswahl_to_anmeldung"
+            app:destination="@id/anmeldung" />
+    </fragment>
+    <fragment
+        android:id="@+id/spielmodus"
+        android:name="de.htw_berlin.quiz_app.Spielmodus"
+        android:label="fragment_spielmodus"
+        tools:layout="@layout/fragment_spielmodus" >
+        <action
+            android:id="@+id/action_spielmodus_to_modusAuswahl2"
+            app:destination="@id/modusAuswahl"
+            app:popUpTo="@id/modusAuswahl"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_spielmodus_to_lost"
+            app:destination="@id/lost" />
+        <action
+            android:id="@+id/action_spielmodus_to_win"
+            app:destination="@id/win" />
+    </fragment>
+    <fragment
+        android:id="@+id/lost"
+        android:name="de.htw_berlin.quiz_app.Lost"
+        android:label="fragment_lost"
+        tools:layout="@layout/fragment_lost" />
+    <fragment
+        android:id="@+id/win"
+        android:name="de.htw_berlin.quiz_app.Win"
+        android:label="fragment_win"
+        tools:layout="@layout/fragment_win" />
 </navigation>

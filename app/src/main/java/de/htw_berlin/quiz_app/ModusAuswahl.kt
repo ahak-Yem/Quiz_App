@@ -31,7 +31,10 @@ class ModusAuswahl : Fragment() {
         nameTextView = view.findViewById(R.id.willkommen)
 
         val name = arguments?.getString("name")
-        nameTextView?.text = "Hallo $name"
+        name?.let {
+            nameTextView?.text = "Hallo $it"
+        }
+
         val normalModeButton = view.findViewById<Button>(R.id.normalMode)
         normalModeButton.setOnClickListener {
             val intent = Intent(requireActivity(), CategorySelectionActivity::class.java)
@@ -57,7 +60,11 @@ class ModusAuswahl : Fragment() {
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("A Propos Modus")
-        builder.setMessage("Spielmodus ist einfach ein Randon von Fragen aus verschiedenen Kategorien.\n\n NormalModus aus Kategorien und da wird ungefahr 10 fragen gestellt")
+        builder.setMessage("SpielModus: 10 Fragen werden zufällig aus verschiedenen Kategorien gestellt. \n" +
+                "Das Spielprinzip ist wie folgt\n" +
+                "eine falsche Antwort -> Spiel verloren\n" +
+                "Zeit läuft ab -> Spiel verloren\n" +
+                "alle Fragen wurden beantwortet -> Winner :).\n\n NormalModus aus Kategorien und da wird ungefahr 10 Pro Kategorie fragen gestellt ")
         builder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }

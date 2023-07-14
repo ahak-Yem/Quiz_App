@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Lost">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/blackfresh"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You Lost"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:background="@drawable/round_back_red"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/tryagainbtn"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="Try again"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_back_green"/>
+
+            <Button
+                android:id="@+id/zum_modus_auswahl"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="modusauswahl"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_back_green"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+</FrameLayout>
