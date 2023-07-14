@@ -92,7 +92,7 @@ class NormalerModusViewModel : ViewModel() {
                 _score= MutableLiveData<Int>(0)
             }
             // Display the first question
-            _session=_db.startSession(_spitzname,questions,category,"Normaler Modus" )
+            //_session=_db.startSession(_spitzname,questions,category,"Normaler Modus" )
             displayCurrentQuestion()
         }, onFailure = {
             Toast.makeText(context,"Unerwarteter Fehler!",Toast.LENGTH_SHORT).show()
@@ -122,7 +122,7 @@ class NormalerModusViewModel : ViewModel() {
         if (currentQuestion?.answer==currentQuestion?.suggestions?.get(buttonClicked)) {
             _score.value = _score.value?.plus(1)
             if (currentQuestion != null) {
-                _session=_db.updateSession(_session,true,currentQuestion.id,false)
+           //     _session=_db.updateSession(_session,true,currentQuestion.id,false)
             }
         }
         questionIndex++
@@ -132,7 +132,7 @@ class NormalerModusViewModel : ViewModel() {
         }
         else{
             if (currentQuestion != null) {
-                _session=_db.updateSession(_session,false,currentQuestion.id,true)
+              //  _session=_db.updateSession(_session,false,currentQuestion.id,true)
             }
             cancelTimer()
             _score.value=0
