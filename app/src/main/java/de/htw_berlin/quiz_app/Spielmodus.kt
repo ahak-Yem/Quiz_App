@@ -1,5 +1,6 @@
 package de.htw_berlin.quiz_app
 
+import Lost
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class Spielmodus : Fragment() {
     private lateinit var option3Button: Button
     private lateinit var option4Button: Button
     private lateinit var nextButton: Button
+
 
     private var currentQuestionIndex: Int = 0
     private val totalQuestions: Int = 10
@@ -54,6 +56,8 @@ class Spielmodus : Fragment() {
         option3Button = view.findViewById(R.id.option3)
         option4Button = view.findViewById(R.id.option4)
         nextButton = view.findViewById(R.id.nextbtn)
+
+
         nextButton.isEnabled = false
         timerTextView = view.findViewById(R.id.timer)
 
@@ -114,7 +118,7 @@ class Spielmodus : Fragment() {
                         // Rufe die Methode checkAnswer mit einer standardmäßig falschen Antwort auf
                         checkAnswer("")
 
-                        lost()
+
                     }
                 }
                 countdownTimer.start()
@@ -185,14 +189,7 @@ class Spielmodus : Fragment() {
 
                 Toast.makeText(requireContext(), "Quiz abgeschlossen!", Toast.LENGTH_SHORT).show()
 
-                // Quiz-Vorgang neu starten:
-                currentQuestionIndex = 0
-                questionsList.shuffle()
-                loadQuestion()
-                userAnswered = false
-                nextButton.isEnabled = false
-                countdownTimer.cancel()
-                countdownTimer.start()
+
             }
         }
     }
@@ -211,9 +208,9 @@ class Spielmodus : Fragment() {
             highlightButtonRed(selectedOption)
             highlightButtonGreen(currentAnswer)
             userAnswered = true
-
-
-          lost()
+            Handler().postDelayed({
+                lost()
+            }, 2000) //
 
         }
 
@@ -252,7 +249,7 @@ class Spielmodus : Fragment() {
     {
         nextButton.isEnabled = false
         Handler().postDelayed({
-            // Action à effectuer après un délai de 3 secondes
+            //
             val lostFragment = Lost()
 
             val fragmentManager = requireActivity().supportFragmentManager
@@ -260,24 +257,25 @@ class Spielmodus : Fragment() {
                 .replace(R.id.fragment_container, lostFragment)
                 .commit()
         }, 3000) // Délai de 3 secondes (3000 millisecondes)
+
+
+
     }
+
     private fun win ()
     {
         nextButton.isEnabled = false
         Handler().postDelayed({
-            // Action à effectuer après un délai de 3 secondes
+            //
             val winFragment = Win()
 
             val fragmentManager = requireActivity().supportFragmentManager
             fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, winFragment)
                 .commit()
-        }, 3000) // Délai de 3 secondes (3000 millisecondes)
+        }, 3000) //
     }
-    private fun  Neuesession()
-    {
 
-    }
 
 
 

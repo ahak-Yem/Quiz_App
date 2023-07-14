@@ -31,7 +31,10 @@ class ModusAuswahl : Fragment() {
         nameTextView = view.findViewById(R.id.willkommen)
 
         val name = arguments?.getString("name")
-        nameTextView?.text = "Hallo $name"
+        name?.let {
+            nameTextView?.text = "Hallo $it"
+        }
+
         val normalModeButton = view.findViewById<Button>(R.id.normalMode)
         normalModeButton.setOnClickListener {
             val intent = Intent(requireActivity(), CategorySelectionActivity::class.java)
