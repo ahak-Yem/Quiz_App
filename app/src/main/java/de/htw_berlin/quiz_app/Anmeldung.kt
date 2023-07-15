@@ -19,6 +19,7 @@ class Anmeldung : Fragment() {
     private var spitznameEditText: EditText? = null
     private var errorTextView: TextView? = null
     private lateinit var db: FirebaseFirestore
+    private lateinit var _spitzname:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,7 @@ class Anmeldung : Fragment() {
         startButton.setOnClickListener {
             val name = nameEditText?.text.toString()
             val spitzname = spitznameEditText?.text.toString()
-
+            _spitzname=spitzname
             if (name.isNotEmpty() && spitzname.isNotEmpty()) {
                 val docRef = db.collection("Users").document(spitzname)
 
@@ -89,6 +90,9 @@ class Anmeldung : Fragment() {
         if (isLoggedIn) {
             // Utilisateur déjà connecté, rediriger vers le fragment ModusAuswahl
             val name = sharedPreferences.getString("name", "") ?: ""
+            val editor = sharedPreferences.edit()
+            editor.putString("spitzname",_spitzname)
+            editor.apply()
             redirectToModusAuswahl(name)
         }
 
@@ -100,6 +104,7 @@ class Anmeldung : Fragment() {
         val editor = sharedPreferences.edit()
         editor.putBoolean("isLoggedIn", true)
         editor.putString("name", name)
+        editor.putString("spitzname",_spitzname)
         editor.apply()
     }
 
