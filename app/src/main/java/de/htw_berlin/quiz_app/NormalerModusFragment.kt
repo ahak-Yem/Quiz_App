@@ -9,9 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import android.content.Context
+import android.content.SharedPreferences
+import de.htw_berlin.quiz_app.databinding.FragmentNormalerModusBinding
+
 //import androidx.navigation.NavArgs
 //import androidx.navigation.fragment.navArgs
-import de.htw_berlin.quiz_app.databinding.FragmentNormalerModusBinding
 //import de.htw_berlin.quiz_app.NormalerModusFragmentArgs
 
 
@@ -31,8 +34,10 @@ class NormalerModusFragment : Fragment() {
         normalerModusViewModel = ViewModelProvider(this)[NormalerModusViewModel::class.java] //Define the ViewModel
         binding.normalerModusViewModel = normalerModusViewModel //Sets/Bind the ViewModel to work on the fragment
         binding.lifecycleOwner = this //Starts the life cycle of this binding object
-        val name = arguments?.getString("name")
-        val spitzname = arguments?.getString("spitzname")
+
+        val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        val spitzname = sharedPreferences.getString("spitzname", "") //Get userID from app preferences
+
         arguments?.let {
             val safeArgs = NormalerModusFragmentArgs.fromBundle(it)
             category = safeArgs.category
