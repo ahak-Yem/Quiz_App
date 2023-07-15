@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
@@ -25,6 +26,7 @@ class ModusAuswahl : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_modus_auswahl, container, false)
 
@@ -71,6 +73,8 @@ class ModusAuswahl : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
+
+
 
 
 

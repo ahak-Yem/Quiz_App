@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import android.os.CountDownTimer
 import android.os.Handler
+import android.view.MenuItem
 import android.widget.Toast
 
 class Spielmodus : Fragment() {
@@ -47,6 +48,8 @@ class Spielmodus : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val view = inflater.inflate(R.layout.fragment_spielmodus, container, false)
 
         fragennummerTextView = view.findViewById(R.id.fragennummer)
@@ -129,6 +132,7 @@ class Spielmodus : Fragment() {
 
         return view
     }
+
 
     private fun loadQuestion() {
         currentQuestion = questionsList[currentQuestionIndex]
