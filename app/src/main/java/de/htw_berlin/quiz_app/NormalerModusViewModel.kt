@@ -37,12 +37,25 @@ class NormalerModusViewModel : ViewModel() {
 
         override fun onFinish() {
             questionIndex++
-            _qIndex.value=questionIndex+1
-            if(questionIndex < questions.size){
+            _qIndex.value = questionIndex + 1
+            if (questionIndex < questions.size) {
+                _db.updateSession(_session, false, questions[questionIndex - 1].id, false, onSuccess = { returnedSession ->
+                    _session = returnedSession
+                    Toast.makeText(_context, "Timeout!", Toast.LENGTH_SHORT).show()
+                }, onFailure = {
+                    Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
+                })
                 displayCurrentQuestion()
-            }
-            else{
-                //TODO: Show final score screen
+            } else {
+                _db.updateSession(_session, false, questions[questionIndex - 1].id, true, onSuccess = { returnedSession ->
+                    _session = returnedSession
+                    Toast.makeText(_context, "Timeout & Fertig!", Toast.LENGTH_SHORT).show()
+                    // TODO: Show final score screen
+                }, onFailure = {
+                    Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
+                })
+                cancelTimer()
+                // TODO: Navigate & show final score screen
             }
         }
     }
@@ -91,8 +104,13 @@ class NormalerModusViewModel : ViewModel() {
                 questionIndex = 0 // Reset the question index to start from the first question
                 _score= MutableLiveData<Int>(0)
             }
+            _db.startSession(_spitzname,questions,category,"Normaler Modus", onSuccess = { returnedSession ->
+                _session=returnedSession
+                Toast.makeText(context,"Session startet!",Toast.LENGTH_SHORT).show()
+            }, onFailure = {
+                    Toast.makeText(context,"Nicht gespeichert",Toast.LENGTH_SHORT).show()
+                })
             // Display the first question
-            //_session=_db.startSession(_spitzname,questions,category,"Normaler Modus" )
             displayCurrentQuestion()
         }, onFailure = {
             Toast.makeText(context,"Unerwarteter Fehler!",Toast.LENGTH_SHORT).show()
@@ -116,28 +134,54 @@ class NormalerModusViewModel : ViewModel() {
     }
 
 
-    //This is called to indicate if the pressed button is correct
     fun answerQuestion(buttonClicked: Int) {
         val currentQuestion = questions.getOrNull(questionIndex)
-        if (currentQuestion?.answer==currentQuestion?.suggestions?.get(buttonClicked)) {
+        if (currentQuestion?.answer == currentQuestion?.suggestions?.get(buttonClicked)) {
             _score.value = _score.value?.plus(1)
+            if (questionIndex < questions.size - 1) {
+                if (currentQuestion != null) {
+                    _db.updateSession(_session, true, currentQuestion.id, false, onSuccess = { returnedSession ->
+                        _session = returnedSession
+                        Toast.makeText(_context, "Richtig!", Toast.LENGTH_SHORT).show()
+                        questionIndex++
+                        _qIndex.value = questionIndex + 1
+                        displayCurrentQuestion()
+                    }, onFailure = {
+                        Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
+                    })
+                }
+            } else {
+                if (currentQuestion != null) {
+                    _db.updateSession(_session, true, currentQuestion.id, true, onSuccess = { finalSession ->
+                        _session = finalSession
+                        Toast.makeText(_context, "Richtig & Fertig!", Toast.LENGTH_SHORT).show()
+                        questionIndex++
+                        _qIndex.value = questionIndex + 1
+                        cancelTimer()
+                        // TODO: Navigate & show final score screen.
+                    }, onFailure = {
+                        Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
+                    })
+                }
+            }
+        } else {
             if (currentQuestion != null) {
-           //     _session=_db.updateSession(_session,true,currentQuestion.id,false)
+                _db.updateSession(_session, false, currentQuestion.id, false, onSuccess = { returnedSession ->
+                    _session = returnedSession
+                    Toast.makeText(_context, "Falsch!", Toast.LENGTH_SHORT).show()
+                    questionIndex++
+                    _qIndex.value = questionIndex + 1
+                    displayCurrentQuestion()
+                }, onFailure = {
+                    Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
+                })
             }
         }
-        questionIndex++
-        _qIndex.value=questionIndex+1
-        if(questionIndex < questions.size){
-            displayCurrentQuestion()
-        }
-        else{
-            if (currentQuestion != null) {
-              //  _session=_db.updateSession(_session,false,currentQuestion.id,true)
-            }
+        if (questionIndex >= questions.size) {
             cancelTimer()
-            _score.value=0
-            _qIndex.value=10
-            //TODO: Navigate & show final score screen.
+            _qIndex.value = 10
+            // TODO: Navigate & show final score screen.
         }
     }
+
 }
