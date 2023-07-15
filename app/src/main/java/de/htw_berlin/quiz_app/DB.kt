@@ -1,6 +1,5 @@
 package de.htw_berlin.quiz_app
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
@@ -97,27 +96,32 @@ class DB {
         }
     }
 
-    fun startSession(spitzname:String, questions: List<Question>, category: Category, mode:String):Session{
+    fun startSession(spitzname:String, questions: List<Question>, category: Category, mode:String, onSuccess:(Session) ->Unit,onFailure: (Exception) -> Unit){
         val questionID=mutableListOf<String>()
+        var countOfDocuments:Int
         for (question in questions){
             questionID.add(question.id)
         }
-        val countOfDocuments= firestore.collection("Sessions").count().get(AggregateSource.SERVER).result.count+1
-        val session= Session(
-            "Session$countOfDocuments",
-            spitzname,
-            0,
-            "nothing",
-            category.name,
-            mode,
-            Timestamp(Date()),
-            false,
-            questionID as ArrayList<String>
-        )
-        firestore.collection("Sessions").document("Session$countOfDocuments").set(session)
-        return session
+        firestore.collection("Sessions")
+            .get().addOnSuccessListener {result ->
+                countOfDocuments = result.size()
+
+                val session = Session(
+                    "Session$countOfDocuments",
+                    spitzname,
+                    0,
+                    "nothing",
+                    category.name,
+                    mode,
+                    Timestamp(Date()),
+                    false,
+                    questionID as ArrayList<String>
+                )
+                firestore.collection("Sessions").document("Session$countOfDocuments").set(session)
+                onSuccess(session)
+            }.addOnFailureListener { exception -> onFailure(exception) }
     }
-    fun updateSession(session:Session,incrementScore:Boolean,lastAnsweredQuestion:String,isComplete:Boolean):Session{
+    fun updateSession(session:Session,incrementScore:Boolean,lastAnsweredQuestion:String,isComplete:Boolean, onSuccess:(Session) ->Unit,onFailure: (Exception) -> Unit){
         var currentScore=session.Count_Correct
         if(incrementScore){
             currentScore = currentScore!! + 1
@@ -135,7 +139,11 @@ class DB {
         )
 
         val currentSessionDoc = firestore.collection("Sessions").document(session.id)
-        currentSessionDoc.set(newSession)
-        return newSession
+        currentSessionDoc.set(newSession).addOnSuccessListener {
+            onSuccess(newSession)
+        }
+            .addOnFailureListener {
+                onFailure(Exception("Nicht gespeichert!"))
+            }
     }
 }
