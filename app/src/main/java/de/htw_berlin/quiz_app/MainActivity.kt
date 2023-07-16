@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -57,7 +58,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.tab3 -> {
                     val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
                     val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
+                    val fragment = Anmeldung()
+                    supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     if (isLoggedIn) {
                         // Clear shared preferences to log out the user
                         val editor = sharedPreferences.edit()
@@ -65,10 +67,10 @@ class MainActivity : AppCompatActivity() {
                         editor.apply()
 
                         // Redirect to the Anmeldung fragment
-                        loadFragment(Anmeldung())
+                        loadFragment(fragment)
                     } else {
                         // The user is not logged in, simply navigate to Anmeldung fragment
-                        loadFragment(Anmeldung())
+                        loadFragment(fragment)
                     }
                     return@setOnItemSelectedListener true
                 }
