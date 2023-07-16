@@ -29,9 +29,6 @@
         <argument
             android:name="category"
             app:argType="de.htw_berlin.quiz_app.Category" />
-        <action
-            android:id="@+id/action_normalerModusFragment_to_modusAuswahl"
-            app:destination="@id/modusAuswahl" />
     </fragment>
     <fragment
         android:id="@+id/anmeldung"
@@ -52,6 +49,9 @@
         <action
             android:id="@+id/action_modusAuswahl_to_anmeldung"
             app:destination="@id/anmeldung" />
+        <action
+            android:id="@+id/action_modusAuswahl_to_categorySelectionFragment"
+            app:destination="@id/categorySelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/spielmodus"
@@ -80,4 +80,9 @@
         android:name="de.htw_berlin.quiz_app.Win"
         android:label="fragment_win"
         tools:layout="@layout/fragment_win" />
+    <fragment
+        android:id="@+id/sessionsFragment"
+        android:name="de.htw_berlin.quiz_app.SessionsFragment"
+        android:label="fragment_sessions"
+        tools:layout="@layout/fragment_sessions" />
 </navigation>
