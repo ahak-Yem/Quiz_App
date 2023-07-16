@@ -1,12 +1,14 @@
+package de.htw_berlin.quiz_app
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import de.htw_berlin.quiz_app.ModusAuswahl
+/*import de.htw_berlin.quiz_app.ModusAuswahl
 import de.htw_berlin.quiz_app.R
-import de.htw_berlin.quiz_app.Spielmodus
+import de.htw_berlin.quiz_app.Spielmodus*/
 
 class Lost : Fragment() {
     private var name: String? = null

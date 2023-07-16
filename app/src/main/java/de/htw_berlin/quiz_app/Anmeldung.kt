@@ -1,3 +1,5 @@
+package de.htw_berlin.quiz_app
+
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,8 +13,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
-import de.htw_berlin.quiz_app.ModusAuswahl
-import de.htw_berlin.quiz_app.R
+/*import de.htw_berlin.quiz_app.ModusAuswahl
+import de.htw_berlin.quiz_app.R*/
 
 class Anmeldung : Fragment() {
     private var nameEditText: EditText? = null
