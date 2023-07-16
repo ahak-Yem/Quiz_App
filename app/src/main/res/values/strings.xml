@@ -14,4 +14,7 @@
     <string name="mode">Mode: %1$s</string>
     <string name="complete_status">%1$s</string>
     <string name="category">%1$s</string>
+    <string name="Main_tab">Main</string>
+    <string name="Sessions_tab">Sessions</string>
+    <string name="Logout_tab">Logout</string>
 </resources>
