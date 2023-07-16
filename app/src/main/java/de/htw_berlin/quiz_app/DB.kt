@@ -99,7 +99,7 @@ class DB {
     fun getUserSessions(userID:String, onSuccess: (List<Session>) -> Unit, onFailure: (Exception) -> Unit){
         val allSessions= mutableListOf<Session>()
         val sessionsCollectionQuery = firestore.collection("Sessions")
-            .whereEqualTo("userID",userID).orderBy("id")
+            .whereEqualTo("userID",userID)
         sessionsCollectionQuery.get().addOnSuccessListener { queryResult ->
             for (document in queryResult){
                 val idSes=document.id

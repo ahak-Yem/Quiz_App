@@ -30,18 +30,15 @@ class SessionsFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val spitzname = sharedPreferences.getString("spitzname", "") //Get userID from app preferences
         if (spitzname != null) {
-            val binding = FragmentSessionsBinding.bind(view)
+            binding.username = spitzname
             viewModel.getUserSessions(spitzname, onSuccess = {
                 binding.totalSessions = it.toString()
                 Toast.makeText(requireContext(), "Erfolgreich", Toast.LENGTH_SHORT).show()
             }, onFailure = {
                 Toast.makeText(requireContext(),"Versuchen Sie später",Toast.LENGTH_SHORT).show()
             })
-            binding.username = spitzname
-            binding.executePendingBindings()
         }
         setupRecyclerView()
-        observeViewModel()
     }
 
     private fun setupRecyclerView() {
@@ -49,8 +46,9 @@ class SessionsFragment : Fragment() {
         binding.sessionsRecyclerView.apply {
             adapter = sessionAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
+            //setHasFixedSize(false)
         }
+        observeViewModel()
     }
 
     private fun observeViewModel() {

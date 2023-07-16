@@ -36,8 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
-                android:text='@{"Session: " + session.started_At.toDate().toString()}'
-                android:textColor="@color/purple_700"
+                android:text='@{@string/session_date(android.text.format.DateFormat.format("dd.MM.yyyy", session.started_At.toDate()))}'                android:textColor="@color/purple_700"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -70,12 +69,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
-                android:text='@{"Mode: " + session.mode}'
+                android:text='@{session.mode}'
                 android:textColor="@color/purple_400"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/correctCountSession"
+                app:layout_constraintEnd_toStartOf="@+id/completeSession"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sessionDate"
@@ -86,18 +85,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="16dp"
                 android:text='@{session.isComplete ? "Complete" : "Incomplete"}'
                 android:textColor="@color/purple_400"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/correctCountSession"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/modeSession"
+                app:layout_constraintEnd_toStartOf="@+id/categorySession"
                 app:layout_constraintTop_toBottomOf="@+id/sessionDate"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="Complete" />
 
             <TextView
@@ -112,8 +109,6 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/completeSession"
                 app:layout_constraintTop_toBottomOf="@+id/correctCountSession"
                 app:layout_constraintVertical_bias="1.0"
                 tools:text="Sports" />
