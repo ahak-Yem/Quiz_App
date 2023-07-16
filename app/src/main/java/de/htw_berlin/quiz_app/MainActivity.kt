@@ -9,9 +9,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View.OnCreateContextMenuListener
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 
 class MainActivity : AppCompatActivity() {
-
+    private var isLoggedInn = false
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        isLoggedInn = sharedPreferences.getBoolean("isLoggedIn", false)
 
         if (isLoggedIn) {
             val name = sharedPreferences.getString("name", "") ?: ""
@@ -35,9 +38,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.home_menu,menu)
-        return super.onCreateOptionsMenu(menu)
+        if (isLoggedInn) {
+            menuInflater.inflate(R.menu.home_menu, menu)
+            return true
+        }
+        return false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         {
             R.id.itemapropos->{
 
-                Toast.makeText(this, "A Propos", Toast.LENGTH_SHORT).show()
+
 
 
             }
@@ -61,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
 
             R.id.itemprofil->{
+
                 Toast.makeText(this, "Mein Profil", Toast.LENGTH_SHORT).show()
 
             }

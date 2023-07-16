@@ -1,6 +1,9 @@
 package de.htw_berlin.quiz_app
 
-class SpielModusViewModel {
+import androidx.lifecycle.ViewModel
+
+class SpielModusViewModel:ViewModel() {
+
 
 
 }

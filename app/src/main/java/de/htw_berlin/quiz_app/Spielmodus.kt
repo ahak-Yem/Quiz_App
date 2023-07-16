@@ -48,7 +48,7 @@ class Spielmodus : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        1
 
         val view = inflater.inflate(R.layout.fragment_spielmodus, container, false)
 
@@ -132,7 +132,16 @@ class Spielmodus : Fragment() {
 
         return view
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Comportement du bouton "Up"
+                requireActivity().supportFragmentManager.popBackStack()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun loadQuestion() {
         currentQuestion = questionsList[currentQuestionIndex]
