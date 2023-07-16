@@ -32,9 +32,10 @@ class NormalerModusFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_normaler_modus, container, false) //Inflate the binding obj
         normalerModusViewModel = ViewModelProvider(this)[NormalerModusViewModel::class.java] //Define the ViewModel
+        normalerModusViewModel.setFragmentManager(childFragmentManager)
         binding.normalerModusViewModel = normalerModusViewModel //Sets/Bind the ViewModel to work on the fragment
         binding.lifecycleOwner = this //Starts the life cycle of this binding object
-
+        normalerModusViewModel.setFragmentManager(childFragmentManager)
         val sharedPreferences = requireContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val spitzname = sharedPreferences.getString("spitzname", "") //Get userID from app preferences
 

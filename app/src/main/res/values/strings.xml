@@ -9,6 +9,13 @@
     <string name="score_format">Score: %1$s/10</string>
     <string name="qCounter_format">Question: %1$s/10</string>
     <string name="timer_format">Timer: %d s</string>
+    <string name="session_date">Session: %1$s</string>
+    <string name="correct_count">Correct: %1$d</string>
+    <string name="complete_status">%1$s</string>
+    <string name="category">%1$s</string>
+    <string name="Main_tab">Main</string>
+    <string name="Sessions_tab">Sessions</string>
+    <string name="Logout_tab">Logout</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

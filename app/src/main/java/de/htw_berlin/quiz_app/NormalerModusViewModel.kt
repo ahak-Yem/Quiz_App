@@ -5,9 +5,14 @@ import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+
 //import de.htw_berlin.quiz_app.AnswerSuggestionsList
 class NormalerModusViewModel : ViewModel() {
-
+    private lateinit var _fragmentManager: FragmentManager
+    fun setFragmentManager(fragmentManager: FragmentManager) {
+        _fragmentManager = fragmentManager
+    }
     //DB instance
     private lateinit var _db:DB
     private lateinit var questions: List<Question> // Holds all fetched questions
@@ -50,12 +55,12 @@ class NormalerModusViewModel : ViewModel() {
                 _db.updateSession(_session, false, questions[questionIndex - 1].id, true, onSuccess = { returnedSession ->
                     _session = returnedSession
                     Toast.makeText(_context, "Timeout & Fertig!", Toast.LENGTH_SHORT).show()
-                    // TODO: Show final score screen
                 }, onFailure = {
                     Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
                 })
                 cancelTimer()
-                // TODO: Navigate & show final score screen
+                val dialogFragment = QuizCompletedDialogFragment()
+                dialogFragment.show(_fragmentManager, "quiz_completed_dialog")
             }
         }
     }
@@ -156,9 +161,9 @@ class NormalerModusViewModel : ViewModel() {
                         _session = finalSession
                         Toast.makeText(_context, "Richtig & Fertig!", Toast.LENGTH_SHORT).show()
                         questionIndex++
-                        _qIndex.value = questionIndex + 1
                         cancelTimer()
-                        // TODO: Navigate & show final score screen.
+                        val dialogFragment = QuizCompletedDialogFragment()
+                        dialogFragment.show(_fragmentManager, "quiz_completed_dialog")
                     }, onFailure = {
                         Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
                     })
@@ -171,16 +176,17 @@ class NormalerModusViewModel : ViewModel() {
                     Toast.makeText(_context, "Falsch!", Toast.LENGTH_SHORT).show()
                     questionIndex++
                     _qIndex.value = questionIndex + 1
+                    if (questionIndex >= questions.size) {
+                        cancelTimer()
+                        _qIndex.value = 10
+                        val dialogFragment = QuizCompletedDialogFragment()
+                        dialogFragment.show(_fragmentManager, "quiz_completed_dialog")
+                    }
                     displayCurrentQuestion()
                 }, onFailure = {
                     Toast.makeText(_context, "Nicht gespeichert", Toast.LENGTH_SHORT).show()
                 })
             }
-        }
-        if (questionIndex >= questions.size) {
-            cancelTimer()
-            _qIndex.value = 10
-            // TODO: Navigate & show final score screen.
         }
     }
 

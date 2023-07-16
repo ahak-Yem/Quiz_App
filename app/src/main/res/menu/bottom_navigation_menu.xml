@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab1"
+        android:title="@string/Main_tab"
+        android:icon="@drawable/ic_home_tab" />
+
+    <item
+        android:id="@+id/tab2"
+        android:title="@string/Sessions_tab"
+        android:icon="@drawable/ic_description_tab" />
+
+    <item
+        android:id="@+id/tab3"
+        android:title="@string/Logout_tab"
+        android:icon="@drawable/ic_logout_tab" />
+</menu>

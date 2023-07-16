@@ -59,6 +59,12 @@ class ModusAuswahl : Fragment() {
 
         return view
     }
+    override fun onResume() {
+        super.onResume()
+        // Get the MainActivity and access its bottomNavigationView
+        val mainActivity = requireActivity() as? MainActivity
+        mainActivity?.bottomNavigationView?.visibility = View.VISIBLE
+    }
     private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("A Propos Modus")

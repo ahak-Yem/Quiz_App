@@ -96,6 +96,42 @@ class DB {
         }
     }
 
+    fun getUserSessions(userID:String, onSuccess: (List<Session>) -> Unit, onFailure: (Exception) -> Unit){
+        val allSessions= mutableListOf<Session>()
+        val sessionsCollectionQuery = firestore.collection("Sessions")
+            .whereEqualTo("userID",userID)
+        sessionsCollectionQuery.get().addOnSuccessListener { queryResult ->
+            for (document in queryResult){
+                val idSes=document.id
+                val countCorrectSes= document.data.getValue("count_Correct") as? Long?
+                val lastAnsweredQuestionSes= document.data.getValue("last_Answered_Question") as? String?
+                val categorySes= document.data.getValue("category") as? String?
+                val modeSes= document.data.getValue("mode") as? String?
+                val startedAtSes= document.data.getValue("started_At") as Timestamp
+                val isCompleteSes = document.data.getValue("isComplete") as? Boolean?
+                val questionsSes = document.data.getValue("questions") as? ArrayList<String>?
+
+                allSessions.add(
+                    Session(
+                        idSes,
+                        userID,
+                        countCorrectSes,
+                        lastAnsweredQuestionSes,
+                        categorySes,
+                        modeSes,
+                        startedAtSes,
+                        isCompleteSes,
+                        questionsSes
+                    )
+                )
+            }
+            onSuccess(allSessions)
+        }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+
+    }
     fun startSession(spitzname:String, questions: List<Question>, category: Category, mode:String, onSuccess:(Session) ->Unit,onFailure: (Exception) -> Unit){
         val questionID=mutableListOf<String>()
         var countOfDocuments:Int

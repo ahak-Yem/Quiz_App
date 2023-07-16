@@ -12,5 +12,5 @@ data class Session (
         val Started_At: Timestamp,
         @field:JvmField
         val isComplete: Boolean?,
-        val Questions: ArrayList<String>?,
+        val Questions: ArrayList<String>?
     )
