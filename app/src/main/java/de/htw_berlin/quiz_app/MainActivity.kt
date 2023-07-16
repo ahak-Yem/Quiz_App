@@ -1,6 +1,5 @@
 package de.htw_berlin.quiz_app
 
-import Anmeldung
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
